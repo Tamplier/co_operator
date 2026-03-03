@@ -4,7 +4,7 @@
 #
 # Table name: social_messages
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  recipient_type :string           not null
 #  text           :string(2048)
 #  created_at     :datetime         not null
@@ -19,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  author_id  (author_id => account_profiles.id)
+#  fk_rails_...  (author_id => account_profiles.id)
 #
 require 'rails_helper'
 

@@ -4,7 +4,7 @@
 #
 # Table name: social_votes
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  decision           :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -19,8 +19,8 @@
 #
 # Foreign Keys
 #
-#  account_profile_id  (account_profile_id => account_profiles.id)
-#  social_request_id   (social_request_id => social_requests.id)
+#  fk_rails_...  (account_profile_id => account_profiles.id)
+#  fk_rails_...  (social_request_id => social_requests.id)
 #
 module Social
   class Vote < ApplicationRecord

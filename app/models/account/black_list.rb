@@ -4,7 +4,7 @@
 #
 # Table name: account_black_lists
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  requester_id :integer          not null
@@ -18,8 +18,8 @@
 #
 # Foreign Keys
 #
-#  requester_id  (requester_id => account_profiles.id)
-#  target_id     (target_id => account_profiles.id)
+#  fk_rails_...  (requester_id => account_profiles.id)
+#  fk_rails_...  (target_id => account_profiles.id)
 #
 module Account
   class BlackList < ApplicationRecord

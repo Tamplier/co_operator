@@ -4,7 +4,7 @@
 #
 # Table name: account_preffered_languages
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  priority           :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -19,8 +19,8 @@
 #
 # Foreign Keys
 #
-#  account_profile_id  (account_profile_id => account_profiles.id)
-#  language_id         (language_id => languages.id)
+#  fk_rails_...  (account_profile_id => account_profiles.id)
+#  fk_rails_...  (language_id => languages.id)
 #
 module Account
   class PrefferedLanguage < ApplicationRecord

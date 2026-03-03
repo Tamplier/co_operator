@@ -4,7 +4,7 @@
 #
 # Table name: stores
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint           not null, primary key
 #  game_link_pattern    :string(255)      not null
 #  profile_link_pattern :string(255)      not null
 #  title                :string(255)      not null

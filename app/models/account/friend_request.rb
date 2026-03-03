@@ -4,7 +4,7 @@
 #
 # Table name: account_friend_requests
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  status       :integer          default("in_review"), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -15,12 +15,12 @@
 #
 #  index_account_friend_requests_on_recipient_id                   (recipient_id)
 #  index_account_friend_requests_on_requester_id                   (requester_id)
-#  index_account_friend_requests_on_requester_id_and_recipient_id  (requester_id,recipient_id) UNIQUE WHERE status != 1
+#  index_account_friend_requests_on_requester_id_and_recipient_id  (requester_id,recipient_id) UNIQUE WHERE (status <> 1)
 #
 # Foreign Keys
 #
-#  recipient_id  (recipient_id => account_profiles.id)
-#  requester_id  (requester_id => account_profiles.id)
+#  fk_rails_...  (recipient_id => account_profiles.id)
+#  fk_rails_...  (requester_id => account_profiles.id)
 #
 module Account
   class FriendRequest < ApplicationRecord

@@ -4,7 +4,7 @@
 #
 # Table name: external_ids
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  owner_type  :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  store_id  (store_id => stores.id)
+#  fk_rails_...  (store_id => stores.id)
 #
 class ExternalId < ApplicationRecord
   belongs_to :store

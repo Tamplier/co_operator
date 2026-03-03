@@ -4,7 +4,7 @@
 #
 # Table name: schedule_occurrences
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  end_at      :datetime         not null
 #  start_at    :datetime         not null
 #  created_at  :datetime         not null
@@ -18,7 +18,7 @@
 #
 # Foreign Keys
 #
-#  schedule_id  (schedule_id => schedules.id)
+#  fk_rails_...  (schedule_id => schedules.id)
 #
 class ScheduleOccurrence < ApplicationRecord
   belongs_to :schedule

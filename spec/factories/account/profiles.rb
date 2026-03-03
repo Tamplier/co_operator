@@ -4,7 +4,7 @@
 #
 # Table name: account_profiles
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string(255)      not null
 #  rating     :float
 #  slug       :string

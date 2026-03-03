@@ -4,7 +4,7 @@
 #
 # Table name: schedules
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  active          :boolean          not null
 #  end_time        :time             not null
 #  owner_type      :string           not null

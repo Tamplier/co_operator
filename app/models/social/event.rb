@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# = Schema Information
+# == Schema Information
 #
 # Table name: social_events
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  max_players :integer
 #  name        :string
 #  start_date  :datetime
@@ -20,8 +20,8 @@
 #
 # Foreign Keys
 #
-#  game_id      (game_id => games.id)
-#  language_id  (language_id => languages.id)
+#  fk_rails_...  (game_id => games.id)
+#  fk_rails_...  (language_id => languages.id)
 #
 module Social
   class Event < ApplicationRecord

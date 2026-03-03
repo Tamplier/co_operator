@@ -4,7 +4,7 @@
 #
 # Table name: social_event_profiles
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  account_profile_id :integer          not null
@@ -18,8 +18,8 @@
 #
 # Foreign Keys
 #
-#  account_profile_id  (account_profile_id => account_profiles.id)
-#  social_event_id     (social_event_id => social_events.id)
+#  fk_rails_...  (account_profile_id => account_profiles.id)
+#  fk_rails_...  (social_event_id => social_events.id)
 #
 require 'rails_helper'
 

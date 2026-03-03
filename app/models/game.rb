@@ -4,7 +4,7 @@
 #
 # Table name: games
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  description :string(300)      not null
 #  rating      :float
 #  title       :string(255)      not null

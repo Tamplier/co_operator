@@ -12,6 +12,7 @@ User.find_or_create_by!(email: 'araman777@gmail.com') do |user|
   user.password = 'qwerty'
   user.role = User.roles[:admin]
   user.confirmed_at = Time.now
+  user.create_account_profile!(name: 'Alex')
 end
 
 I18nData.languages(:en).each do |code, name|

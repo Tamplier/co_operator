@@ -4,7 +4,7 @@
 #
 # Table name: languages
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  code       :string(10)       not null
 #  name       :string(255)      not null
 #  created_at :datetime         not null

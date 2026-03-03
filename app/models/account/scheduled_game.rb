@@ -4,7 +4,7 @@
 #
 # Table name: account_scheduled_games
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  game_id     :integer          not null
@@ -18,8 +18,8 @@
 #
 # Foreign Keys
 #
-#  game_id      (game_id => games.id)
-#  schedule_id  (schedule_id => schedules.id)
+#  fk_rails_...  (game_id => games.id)
+#  fk_rails_...  (schedule_id => schedules.id)
 #
 module Account
   class ScheduledGame < ApplicationRecord
