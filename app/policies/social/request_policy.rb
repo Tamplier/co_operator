@@ -3,7 +3,7 @@
 module Social
   class RequestPolicy < ApplicationPolicy
     def vote?
-      record.social_event.profiles.exists?(user.id)
+      record.social_event.profiles.exists?(user_id: user.id)
     end
   end
 end
