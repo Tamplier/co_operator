@@ -1,0 +1,11 @@
+@layer components {
+  .tooltip {
+    @apply block bg-gray-900 border border-gray-700;
+    @apply text-gray-100 text-xs sm:text-sm;
+    @apply px-3 py-2 rounded-lg;
+    @apply [@media(hover:hover)]:absolute [@media(hover:none)]:relative [@media(hover:none)]:mt-2;
+  }
+  .tooltip .arrow {
+    @apply absolute w-3 h-3 bg-gray-900 rotate-45;
+  }
+}

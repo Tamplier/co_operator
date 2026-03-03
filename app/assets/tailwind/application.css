@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "../stylesheets/components/toggle.css";
+@import "../stylesheets/components/alert.css";
+@import "../stylesheets/components/form.css";
+@import "../stylesheets/components/inline_form.css";
+@import "../stylesheets/components/tooltip.css";

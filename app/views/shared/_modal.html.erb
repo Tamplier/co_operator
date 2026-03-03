@@ -1,0 +1,34 @@
+<%# locals: (stretch_mobile: false, title: nil) %>
+
+<%= turbo_frame_content_for :modal do %>
+  <div data-controller="modal"
+       class="bg-transparent text-gray-400 absolute inset-0 flex flex-col justify-center p-4">
+    <div id="backdrop"
+         class="backdrop bg-black/50 backdrop-blur-sm inset-0 absolute z-50"
+         data-action="click->modal#backdropClick"></div>
+    <div class="
+      bg-gray-800 border-gray-700 border rounded-xl shadow-none sm:shadow-xl
+      sm:min-h-0 w-full max-w-2xl overflow-hidden z-60
+      relative flex flex-col m-auto <%= stretch_mobile ? 'min-h-[90dvh]' : '' %>
+    ">
+      <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-700">
+        <% if title.html_safe? %>
+          <%= title %>
+        <% else %>
+          <%= content_tag :span, title, class: 'flex-1 text-2xl font-bold' %>
+        <% end %>
+        <%= icon 'x-mark',
+                 data: { action: 'click->modal#close' },
+                 id: 'close',
+                 class: 'px-2 py-1 w-8 h-8 top-3.5 right-3.5 flex-none
+                         text-gray-400 bg-gray-700 rounded
+                         cursor-pointer [&>*]:pointer-events-none' %>
+      </div>
+      <div class="grow flex flex-col">
+        <div class="m-4">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

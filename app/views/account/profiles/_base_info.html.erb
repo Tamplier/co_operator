@@ -1,0 +1,52 @@
+<%
+  update_url = update_base_account_profile_path(@profile)
+%>
+
+<div class="flex flex-col sm:flex-row gap-6 items-start">
+  <!-- Avatar -->
+  <%= render 'account/profiles/base/avatar' %>
+  <!-- Info -->
+  <div class="flex-1 w-full">
+    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+      <div>
+        <%= inline_field_frame(@profile, :name, update_url) do |f| %>
+          <%= f.input :name,
+                      as: :text_inline,
+                      required: true,
+                      edit_mode: @edit_mode,
+                      wrapper_html: { class: 'mb-1' },
+                      input_html: { class: 'h-9' },
+                      label_html: { class: 'text-3xl font-bold items-baseline' },
+                      edit_html: { class: 'text-gray-400 w-5 h-5' } %>
+        <% end %>
+        <%= inline_field_frame(@profile, :slug, update_url) do |f| %>
+          <%= f.input :slug,
+                      as: :text_inline,
+                      required: true,
+                      edit_mode: @edit_mode,
+                      wrapper_html: { class: 'mb-1' },
+                      label_html: { class: 'text-gray-400 mono text-sm items-center', prefix: '@' },
+                      input_html: { class: 'h-9' },
+                      edit_html: { class: 'text-gray-400 w-4 h-4' } %>
+        <% end %>
+        <%= render 'account/profiles/base/email' %>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-700">
+      <div>
+        <div class="text-2xl font-bold text-purple-400">47</div>
+        <div class="text-sm text-gray-400">Sessions</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-orange-400">95%</div>
+        <div class="text-sm text-gray-400">Reliability</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-green-400">12</div>
+        <div class="text-sm text-gray-400">Companions</div>
+      </div>
+    </div>
+  </div>
+</div>

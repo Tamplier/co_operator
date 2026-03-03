@@ -1,0 +1,10 @@
+<div id="flash" class="fixed top-4 left-0 right-0 z-60 flex justify-center px-4">
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-<%= type %> flex flex-row gap-2" data-controller="flash">
+      <%= msg %>
+      <%= icon 'x-mark',
+               data: { action: 'click->flash#close' },
+               class: 'w-5 h-5 cursor-pointer [&>*]:pointer-events-none shrink-0 right-8' %>
+    </div>
+  <% end %>
+</div>

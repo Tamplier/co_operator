@@ -1,0 +1,20 @@
+<% if @edit_mode %>
+  <%= turbo_frame_tag(:profile_avatar) do %>
+    <%= simple_form_for(@profile, url: update_base_account_profile_path(@profile)) do |f|%>
+      <%= f.input :avatar,
+                  as: :image_upload,
+                  variant: :medium,
+                  input_html: { direct_upload: true, accept: 'image/*' },
+                  wrapper_html: { class: 'relative group' } %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% avatar = @profile.avatar.variant(:medium) %>
+  <% if avatar.present? %>
+    <%= image_tag avatar, class: 'image-preview' %>
+  <% else%>
+    <div class="image-preview image-empty-bg">
+      <%= icon "user", class: "image-empty-icon" %>
+    </div>
+  <% end %>
+<% end %>

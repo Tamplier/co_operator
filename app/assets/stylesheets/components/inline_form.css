@@ -1,0 +1,9 @@
+@layer components {
+  .inline-group {
+    @apply flex flex-row gap-2 w-full;
+  }
+
+  button.inline-cancel {
+    @apply bg-gray-700 hover:bg-gray-600 transition-colors;
+  }
+}

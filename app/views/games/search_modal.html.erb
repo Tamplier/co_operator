@@ -1,0 +1,19 @@
+<% title_html = capture do %>
+  <%= icon 'magnifying-glass', class: 'w-5 h-5 text-gray-400' %>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Найти игру или событие..."
+    class="flex-1 bg-transparent outline-none text-lg placeholder-gray-500"
+    autocomplete="off">
+<% end %>
+
+<%= render 'shared/modal', title: title_html, stretch_mobile: true do %>
+  <div id="searchResults" class="sm:max-h-96 overflow-y-auto grow flex flex-col">
+    <!-- Empty state -->
+    <div id="emptyState" class="py-12 text-center justify-center text-gray-500 grow flex flex-col">
+      <%= icon 'magnifying-glass', class: 'w-12 h-12 mx-auto mb-3 text-gray-600' %>
+      <p>Начните вводить название игры...</p>
+    </div>
+  </div>
+<% end %>

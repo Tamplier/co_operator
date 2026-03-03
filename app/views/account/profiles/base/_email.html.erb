@@ -1,0 +1,37 @@
+<%
+  unconfirmed_email = @edit_mode && policy(@profile).resend_email_confirmation?
+%>
+
+<% postfix = capture do %>
+  <% if unconfirmed_email %>
+    <%= link_to user_confirmation_path(user: { email: current_user.unconfirmed_email }),
+                data: { turbo_frame: '_top',
+                        'turbo-method': :post,
+                        'tooltip-target': 'trigger',
+                        action: 'mouseenter->tooltip#show mouseleave->tooltip#hide' } do %>
+      <%= icon 'arrow-path', class: 'h-4 w-4 text-gray-400 transition duration-300 hover:rotate-180' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= inline_field_frame(@profile, :email, update_email_account_profile_path(@profile)) do |f| %>
+  <div data-controller="tooltip">
+    <%= f.simple_fields_for :user do |user_form| %>
+      <div class="flex flex-row items-center gap-2">
+        <%= user_form.input :email,
+                            as: :text_inline,
+                            required: true,
+                            edit_mode: @edit_mode,
+                            input_html: { class: 'h-9' },
+                            label_html: { class: 'text-gray-300 items-center', postfix: postfix },
+                            edit_html: { class: 'text-gray-400 w-4 h-4' } %>
+
+      </div>
+    <% end %>
+    <% if unconfirmed_email %>
+      <span data-tooltip-target="content" class="tooltip hidden">
+        Resend confirmation instructions for <%= current_user.reload.unconfirmed_email %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

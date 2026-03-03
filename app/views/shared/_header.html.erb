@@ -1,0 +1,57 @@
+<header id="header" class="fixed top-0 left-0 right-0 h-16 bg-gray-800 z-40 flex items-center justify-between px-4">
+  <!-- Hamburger (mobile only) -->
+  <% if current_user.present? %>
+    <button id="menuToggle" class="lg:hidden p-2 hover:bg-gray-700 rounded-lg" data-action="click->sb#toggle">
+        <%= icon 'bars-3', class: 'w-6 h-6' %>
+    </button>
+  <% end %>
+
+  <!-- Logo -->
+  <a href="#" class="flex items-center gap-2 text-xl font-bold">
+    <%= image_tag('logo.svg', class: 'w-8 h-8 hidden sm:inline') %>
+    <span class="hidden sm:inline">CoOperator</span>
+  </a>
+
+  <!-- Right side controls -->
+  <div class="flex items-center gap-2">
+    <!-- Search -->
+    <%= link_to search_modal_path, class: 'p-2 hover:bg-gray-700 rounded-lg', data: { turbo_frame: :modal } do %>
+      <%= icon 'magnifying-glass', class: 'w-5 h-5' %>
+    <% end %>
+
+    <% if current_user.present? %>
+      <!-- Notifications -->
+      <button id="notifications" class="p-2 hover:bg-gray-700 rounded-lg relative">
+        <%= icon 'bell', class: 'w-5 h-5' %>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full
+                     w-5 h-5 flex items-center justify-center">
+          3
+        </span>
+      </button>
+
+      <!-- Settings -->
+      <%= link_to me_account_profiles_path,
+                  id: 'settings',
+                  class: 'p-2 hover:bg-gray-700 rounded-lg' do %>
+        <%= icon 'cog-8-tooth', class: 'w-5 h-5' %>
+      <% end %>
+
+      <!-- Login/Logout -->
+      <%= link_to destroy_user_session_path,
+                  id: 'logout',
+                  class: 'p-2 hover:bg-gray-700 rounded-lg',
+                  data: { turbo_frame: '_top',
+                          turbo_method: 'delete',
+                          turbo_confirm: 'Do you really want to end the session?' } do %>
+        <%= icon 'arrow-right-start-on-rectangle', class: 'w-5 h-5' %>
+      <% end %>
+    <% else %>
+      <%= link_to user_session_path,
+                  id: 'login',
+                  class: 'p-2 hover:bg-gray-700 rounded-lg',
+                  data: { turbo_frame: :modal } do %>
+        <%= icon 'arrow-right-end-on-rectangle', class: 'w-5 h-5' %>
+      <% end %>
+    <% end %>
+  </div>
+</header>

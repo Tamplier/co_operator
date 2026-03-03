@@ -1,0 +1,51 @@
+<%
+  url = registration_path(resource_name)
+  data = { controller: 'submit', turbo_frame: '_top' }
+%>
+
+<%= render 'shared/modal', title: 'Sign up' do %>
+  <%= simple_form_for(resource, as: resource_name, url: url, data: data) do |f| %>
+    <div class="flex flex-col justify-center items-center gap-4">
+      <%= f.simple_fields_for :account_profile do |profile_form| %>
+        <%= profile_form.input :name,
+                               label: false,
+                               placeholder: 'Name',
+                               wrapper_html: { class: 'text_input_wrapper' },
+                               input_html: { class: 'text_input' },
+                               required: true %>
+      <% end %>
+      <%= f.input :email,
+                  label: false,
+                  autocomplete: 'email',
+                  placeholder: 'Email',
+                  wrapper_html: { class: 'text_input_wrapper' },
+                  input_html: { class: 'text_input' },
+                  required: true %>
+      <%= f.input :password,
+                  label: false,
+                  placeholder: 'Password',
+                  wrapper_html: { class: 'text_input_wrapper' },
+                  input_html: { class: 'text_input' },
+                  autocomplete: 'new-password',
+                  minlength: @minimum_password_length,
+                  required: true %>
+      <%= f.input :password_confirmation,
+                  label: false,
+                  placeholder: 'Password Confirmation',
+                  wrapper_html: { class: 'text_input_wrapper' },
+                  input_html: { class: 'text_input' },
+                  autocomplete: 'new-password',
+                  required: true %>
+
+      <div class="w-full sm:w-2/3 flex justify-end">
+        <%= f.button :button, 'Sign up', type: :submit %>
+      </div>
+    </div>
+  <% end %>
+  <div class="mt-6 text-center text-sm text-gray-400">
+    Already have an account?
+    <%= link_to 'Log in',
+                user_session_path,
+                class: 'text-purple-400 hover:text-purple-300 font-medium' %>
+  </div>
+<% end %>

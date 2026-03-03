@@ -1,0 +1,31 @@
+<%
+  url = password_path(resource_name)
+  data = { controller: 'submit', turbo_frame: '_top' }
+%>
+
+<%= render 'shared/modal', title: 'Change your password' do %>
+  <%= simple_form_for(resource, as: resource_name, url: url, html: { method: :put }, data: data) do |f| %>
+    <div class="flex flex-col justify-center items-center gap-4">
+      <%= f.input :reset_password_token, as: :hidden %>
+      <%= f.full_error :reset_password_token %>
+
+      <%= f.input :password,
+                  placeholder: 'Password',
+                  label: false,
+                  required: true,
+                  autofocus: true,
+                  minlength: @minimum_password_length,
+                  wrapper_html: { class: 'text_input_wrapper' },
+                  input_html: { autocomplete: 'new-password', class: 'text_input' } %>
+      <%= f.input :password_confirmation,
+                  placeholder: 'Password confirmation',
+                  label: false,
+                  required: true,
+                  wrapper_html: { class: 'text_input_wrapper' },
+                  input_html: { autocomplete: 'new-password', class: 'text_input' } %>
+      <div class="w-full sm:w-2/3 flex justify-end">
+        <%= f.button :button, 'Change my password', type: :submit %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

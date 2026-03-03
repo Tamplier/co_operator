@@ -1,0 +1,38 @@
+@layer components {
+  .toggle-wrapper {
+    @apply inline-flex items-center cursor-pointer;
+  }
+
+  .toggle-label {
+    @apply ml-3! text-sm font-medium;
+  }
+
+  .toggle-base {
+    @apply relative rounded-full flex items-center bg-gray-700;
+  }
+
+  .toggle-dot {
+    @apply after:content-[''] after:rounded-full after:transition-all after:border;
+    @apply after:left-0.5 after:absolute;
+    @apply after:bg-gray-400 after:border-gray-600;
+  }
+
+  input.peer {
+    @apply sr-only;
+  }
+
+  .toggle-sm { @apply w-9 h-5 after:h-4 after:w-4; }
+  .toggle-md { @apply w-11 h-6 after:h-5 after:w-5; }
+  .toggle-lg { @apply w-14 h-7 after:h-6 after:w-6; }
+
+  input:checked + .toggle-base {
+    background-color: theme('colors.purple.600');
+  }
+
+  input.peer:checked + .toggle-dot:after {
+    background-color: theme('colors.white');
+    border-color: theme('colors.white');
+    left: auto;
+    right: 2px;
+  }
+}

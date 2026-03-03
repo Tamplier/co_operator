@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "target": "ES2022",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@hotwired/stimulus": [
+        "./app/javascript/types/stimulus.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "app/javascript/**/*"
+  ]
+}

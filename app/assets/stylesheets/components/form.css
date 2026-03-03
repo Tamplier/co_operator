@@ -1,0 +1,84 @@
+@layer components {
+  button[type="submit"] .spinner_container {
+    @apply inline-flex items-center;
+  }
+
+  .spinner_container svg {
+    @apply -ml-1 size-4 animate-spin text-white;
+  }
+
+  .spinner_container svg circle {
+    @apply opacity-25;
+  }
+
+  .spinner_container svg path {
+    @apply opacity-75;
+  }
+
+  .text_input {
+    @apply w-full px-4 py-2 bg-gray-700 text-gray-100 placeholder-gray-500;
+    @apply border border-gray-600 rounded-lg;
+    @apply focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent;
+  }
+
+  .text_input_wrapper {
+    @apply w-full sm:w-2/3;
+  }
+
+  button[type="submit"] {
+    @apply px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium;
+    @apply disabled:cursor-not-allowed disabled:bg-purple-500 disabled:hover:bg-purple-400;
+  }
+
+  .field_with_errors input {
+    @apply border-red-500 focus:ring-red-500;
+  }
+
+  .error {
+    @apply text-red-400 text-sm mt-1 ml-1;
+  }
+
+  /* image upload */
+  .image-preview {
+    @apply w-24 h-24 sm:w-32 sm:h-32 rounded-2xl shadow-xl relative;
+  }
+
+  .image-empty-bg {
+    @apply bg-linear-to-br from-purple-500 via-pink-500 to-orange-500;
+    @apply flex items-center justify-center;
+  }
+
+  .delete_button {
+    @apply h-7 w-7 p-1.5 absolute top-1 right-1 rounded-full z-10 shadow-lg;
+    @apply bg-gray-100 border border-gray-500 text-black cursor-pointer;
+    @apply disabled:opacity-70 disabled:cursor-not-allowed;
+  }
+
+  .delete_button svg {
+    @apply h-3.5 w-3.5;
+  }
+
+  .image-empty-icon {
+    @apply w-10 h-10 text-white;
+  }
+
+  button.image-upload-button {
+    @apply absolute inset-0 bg-black/0 group-hover:bg-black rounded-2xl group-hover:cursor-pointer;
+    @apply flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all;
+    @apply disabled:bg-black disabled:opacity-100;
+  }
+
+  .image-upload-button-icon {
+    @apply w-8 h-8 text-white;
+  }
+
+  .image-upload-button * {
+    pointer-events: none;
+  }
+
+  button.image-upload-button.dragging {
+    background-color: rgb(0 0 0 / 1);
+    opacity: 1;
+    cursor: "pointer";
+  }
+}
