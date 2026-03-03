@@ -11,6 +11,10 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_games_on_title  (title) USING gin
+#
 class Game < ApplicationRecord
   has_many :external_ids, as: :owner, dependent: :destroy
   has_many :stores, through: :external_ids

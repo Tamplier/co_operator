@@ -11,6 +11,10 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_games_on_title  (title) USING gin
+#
 FactoryBot.define do
   factory :game, class: 'Game' do
     title { Faker::Game.title }
