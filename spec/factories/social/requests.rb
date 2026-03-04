@@ -33,7 +33,7 @@ FactoryBot.define do
     social_event { create(:social_event, :with_users) }
     status { 'in_review' }
 
-    Social::Request.statuses.keys.each do |status_name|
+    Social::Request.statuses.each_key do |status_name|
       trait status_name do
         status { status_name }
       end

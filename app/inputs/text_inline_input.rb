@@ -24,12 +24,20 @@ class TextInlineInput < SimpleForm::Inputs::StringInput
 
   def label_part
     template.content_tag(:span, label_options) do
-      attr_name = edit_enabled? ? "#{attribute_name}_in_database" : attribute_name
       template.concat label_options[:prefix] if label_options[:prefix].present?
-      template.concat object.public_send(attr_name).to_s
-      template.concat(options[:edit_mode] ? edit_link : ''.html_safe)
+      template.concat label_part_value
+      template.concat edit_action_link
       template.concat label_options[:postfix] if label_options[:postfix].present?
     end
+  end
+
+  def label_part_value
+    attr_name = edit_enabled? ? "#{attribute_name}_in_database" : attribute_name
+    object.public_send(attr_name).to_s
+  end
+
+  def edit_action_link
+    options[:edit_mode] ? edit_link : ''.html_safe
   end
 
   def edit_link

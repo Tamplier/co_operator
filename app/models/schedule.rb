@@ -74,6 +74,6 @@ class Schedule < ApplicationRecord
         end_at: o.end_time.to_datetime
       }
     end
-    schedule_occurrences.insert_all!(occurrences_data) # rubocop:disable Rails/SkipsModelValidations
+    schedule_occurrences.insert_all!(occurrences_data)
   end
 end

@@ -1,14 +1,37 @@
 AllCops:
   Exclude:
-      - 'db/schema.rb'
+    - 'db/schema.rb'
+    - 'config/**/*'
+    - 'bin/**/*'
   NewCops: enable
   TargetRubyVersion: 4.0
 
 Layout/LineLength:
+  AllowedPatterns: ['\A\s*#']
   Max: 120
+  Exclude:
+    - 'spec/**/*'
 
 Style/Documentation:
   Enabled: false
 
 Lint/EmptyClass:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'spec/**/*'
+    - 'db/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'db/**/*'
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'db/**/*'
+
+Metrics/AbcSize:
+  Max: 30
