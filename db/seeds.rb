@@ -18,6 +18,11 @@ end
 Store.find_or_create_by!(title: 'Steam') do |store|
   store.game_link_pattern = 'https://store.steampowered.com/app/:id'
   store.profile_link_pattern = 'https://steamcommunity.com/profiles/:id'
+  store.image_link_pattern = {
+    small: 'https://cdn.cloudflare.steamstatic.com/steam/apps/:id/capsule_sm_120.jpg',
+    medium: 'https://cdn.cloudflare.steamstatic.com/steam/apps/:id/capsule_231x87.jpg',
+    large: 'https://cdn.cloudflare.steamstatic.com/steam/apps/:id/header.jpg'
+  }
 end
 
 I18nData.languages(:en).each do |code, name|

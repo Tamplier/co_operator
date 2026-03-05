@@ -6,6 +6,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  game_link_pattern    :string(255)      not null
+#  image_link_pattern   :jsonb
 #  profile_link_pattern :string(255)      not null
 #  title                :string(255)      not null
 #  created_at           :datetime         not null
@@ -25,5 +26,14 @@ class Store < ApplicationRecord
 
   def self.steam
     find_by!(title: 'Steam')
+  end
+
+  def image_link(external_id, variant)
+    pattern = image_link_pattern.with_indifferent_access[variant]
+    pattern&.gsub(':id', external_id.to_s)
+  end
+
+  def supports_external_image?
+    image_link_pattern.present?
   end
 end
