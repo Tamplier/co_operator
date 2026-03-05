@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_05_090021) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_05_133618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -127,8 +127,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_05_090021) do
     t.bigint "last_modified", default: 0
     t.float "rating"
     t.string "title", limit: 255, null: false
+    t.virtual "title_normalized", type: :text, as: "lower(regexp_replace((title)::text, '[^a-zA-Zа-яА-Я0-9\\s]+'::text, ' '::text, 'g'::text))", stored: true
     t.datetime "updated_at", null: false
-    t.index ["title"], name: "index_games_on_title", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title_normalized"], name: "index_games_on_title_normalized_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "languages", force: :cascade do |t|

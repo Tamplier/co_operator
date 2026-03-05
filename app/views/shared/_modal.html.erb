@@ -1,7 +1,7 @@
-<%# locals: (stretch_mobile: false, title: nil) %>
+<%# locals: (stretch_mobile: false, title: nil, wrapper_controller: nil) %>
 
 <%= turbo_frame_content_for :modal do %>
-  <div data-controller="modal"
+  <div data-controller="modal <%= wrapper_controller.presence %>"
        class="bg-transparent text-gray-400 absolute inset-0 flex flex-col justify-center p-4">
     <div id="backdrop"
          class="backdrop bg-black/50 backdrop-blur-sm inset-0 absolute z-50"
@@ -25,7 +25,7 @@
                          cursor-pointer [&>*]:pointer-events-none' %>
       </div>
       <div class="grow flex flex-col">
-        <div class="m-4">
+        <div class="m-4 grow flex flex-col">
           <%= yield %>
         </div>
       </div>

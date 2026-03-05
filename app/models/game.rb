@@ -4,17 +4,18 @@
 #
 # Table name: games
 #
-#  id            :bigint           not null, primary key
-#  description   :string(300)
-#  last_modified :bigint           default(0)
-#  rating        :float
-#  title         :string(255)      not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id               :bigint           not null, primary key
+#  description      :string(300)
+#  last_modified    :bigint           default(0)
+#  rating           :float
+#  title            :string(255)      not null
+#  title_normalized :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 # Indexes
 #
-#  index_games_on_title  (title) USING gin
+#  index_games_on_title_normalized_trgm  (title_normalized) USING gin
 #
 class Game < ApplicationRecord
   has_many :external_ids, as: :owner, dependent: :destroy
@@ -33,6 +34,26 @@ class Game < ApplicationRecord
   }, allow_nil: true
 
   accepts_nested_attributes_for :external_ids, allow_destroy: true
+
+  def self.search_by_title(query, limit = 5)
+    return if query.blank?
+
+    query = query.strip.downcase.gsub(/[^a-zа-я0-9\s]/i, ' ')
+
+    order_sql = sanitize_sql_array(
+      [
+        'GREATEST(similarity(title_normalized, ?), word_similarity(?, title_normalized)) DESC',
+        query, query
+      ]
+    )
+
+    where(
+      'similarity(title_normalized, ?) > 0.3 OR word_similarity(?, title_normalized) > 0.35',
+      query, query
+    )
+      .order(Arel.sql(order_sql))
+      .limit(limit)
+  end
 
   def preview_url(variant = :medium)
     if preview.attached?

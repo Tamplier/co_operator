@@ -1,0 +1,9 @@
+<%# locals: (game:) %>
+
+<div class="qwerty">
+  <%= link_to '#', class: 'flex items-center gap-3 sm:px-3 px-0 py-2 rounded-lg hover:bg-gray-700 group' do %>
+    <%= image_tag game.preview_url(:small), class: 'rounded' %>
+    <div class="flex-1 font-medium group-hover:text-purple-400"><%= game.title %></div>
+    <%= icon 'chevron-right', class: '"w-5 h-5 text-gray-600 group-hover:text-gray-400' %>
+  <% end %>
+</div>
