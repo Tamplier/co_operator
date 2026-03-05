@@ -22,4 +22,8 @@ class Store < ApplicationRecord
   validates :title, presence: true
   validates :game_link_pattern, presence: true
   validates :profile_link_pattern, presence: true
+
+  def self.steam
+    find_by!(title: 'Steam')
+  end
 end

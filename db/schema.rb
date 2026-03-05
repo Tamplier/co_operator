@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_03_142947) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_04_162423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -104,6 +104,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_142947) do
     t.string "owner_type", null: false
     t.integer "store_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_id", "updated_at"], name: "index_external_ids_on_external_id_and_updated_at"
     t.index ["owner_id", "owner_type", "store_id"], name: "index_external_ids_on_owner_id_and_owner_type_and_store_id", unique: true
     t.index ["owner_type", "owner_id"], name: "index_external_ids_on_owner"
     t.index ["store_id"], name: "index_external_ids_on_store_id"
@@ -122,7 +123,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_142947) do
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "description", limit: 300, null: false
+    t.string "description", limit: 300
+    t.bigint "last_modified", default: 0
     t.float "rating"
     t.string "title", limit: 255, null: false
     t.datetime "updated_at", null: false

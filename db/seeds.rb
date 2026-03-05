@@ -15,6 +15,11 @@ User.find_or_create_by!(email: 'araman777@gmail.com') do |user|
   user.create_account_profile!(name: 'Alex')
 end
 
+Store.find_or_create_by!(title: 'Steam') do |store|
+  store.game_link_pattern = 'https://store.steampowered.com/app/:id'
+  store.profile_link_pattern = 'https://steamcommunity.com/profiles/:id'
+end
+
 I18nData.languages(:en).each do |code, name|
   Language.find_or_create_by!(code: code) { |l| l.name = name }
 end

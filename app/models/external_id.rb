@@ -14,6 +14,7 @@
 #
 # Indexes
 #
+#  index_external_ids_on_external_id_and_updated_at            (external_id,updated_at)
 #  index_external_ids_on_owner                                 (owner_type,owner_id)
 #  index_external_ids_on_owner_id_and_owner_type_and_store_id  (owner_id,owner_type,store_id) UNIQUE
 #  index_external_ids_on_store_id                              (store_id)
@@ -28,4 +29,7 @@ class ExternalId < ApplicationRecord
 
   validates :external_id, presence: true
   validates :owner_id, uniqueness: { scope: %i[store_id owner_type] }
+
+  scope :for_store, ->(store) { where(store: store) }
+  scope :steam, -> { for_store(Store.steam) }
 end
