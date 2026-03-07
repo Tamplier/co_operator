@@ -23,13 +23,20 @@ Rails.application.routes.draw do
 
   root 'games#index'
   namespace :account do
-    resources :profiles, only: %i[show] do
+    resources :profiles, only: %i[index show]
+    resource :profile, only: %i[] do
       get :me, on: :collection
-      patch :update_base, on: :member
-      patch :update_email, on: :member
+      patch :update_base
+      patch :update_email
+
+      resources :games, only: [] do
+        get :find, on: :collection
+        post :add, on: :member
+        delete :remove, on: :member
+      end
     end
   end
 
   get 'search_modal', to: 'games#search_modal'
-  get 'games/:id', to: 'games#show'
+  get 'game/:id', to: 'games#show', as: :game
 end

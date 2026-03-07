@@ -11,7 +11,7 @@ module Account
       common_update do
         flash.now[:notice] = I18n.t('devise.registrations.update_needs_confirmation')
         respond_to do |format|
-          format.html { redirect_to me_account_profiles_path }
+          format.html { redirect_to me_account_profile_path }
           format.turbo_stream do
             render turbo_stream: [
               turbo_stream.update(request.headers['Turbo-Frame'], partial: 'account/profiles/base/email'),

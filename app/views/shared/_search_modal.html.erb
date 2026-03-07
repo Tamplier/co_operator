@@ -1,0 +1,28 @@
+<%# locals: (search_url:) %>
+
+<% mode = params[:mode] || 'single' %>
+
+<% title_html = capture do %>
+  <%= icon 'magnifying-glass', class: 'w-5 h-5 text-gray-400' %>
+  <%= form_with url: search_url,
+                method: :get,
+                class: 'flex-1 flex',
+                data: { turbo_frame: :search_results, 'game-search-target': 'form' } do |f| %>
+    <%= f.search_field :query,
+                       value: @query,
+                       type: :text,
+                       placeholder: 'Search games by title...',
+                       autocomplete: 'off',
+                       data: { action: 'input->game-search#search' },
+                       class: 'flex-1 bg-transparent outline-none text-lg placeholder-gray-500' %>
+  <% end %>
+<% end %>
+
+<%= render 'shared/modal', title: title_html, stretch_mobile: true, wrapper_controller: 'game-search' do %>
+  <div data-game-search-target="resultsLoader"
+       class="absolute inset-0 bg-gray-900/80 flex items-center justify-center rounded-b-xl hidden">
+  </div>
+  <div class="sm:max-h-96 overflow-y-auto flex-1 min-h-0 grow flex flex-col scrollbar -mx-2 px-2">
+    <%= yield %>
+  </div>
+<% end %>

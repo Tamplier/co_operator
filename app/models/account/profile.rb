@@ -27,6 +27,8 @@ module Account
     belongs_to :user
     has_many :external_ids, as: :owner, dependent: :destroy
     has_many :stores, through: :external_ids
+    has_many :account_games, class_name: 'Account::Game', inverse_of: :account_profile
+    has_many :games, through: :account_games, source: :game, class_name: '::Game'
     has_many :languages, class_name: 'Account::PrefferedLanguage',
                          inverse_of: :account_profile,
                          dependent: :destroy

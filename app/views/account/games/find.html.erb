@@ -1,0 +1,12 @@
+<%= render 'shared/search_modal', search_url: find_account_profile_games_path do %>
+  <details name="games_list" data-game-search-target="details" open>
+    <summary class="py-3 cursor-pounter select-none">Search results</summary>
+    <%= render 'games/shared/search' %>
+  </details>
+  <details name="games_list">
+    <summary class="py-3 cursor-pounter select-none">
+      Selected (<span data-game-search-target="counter">0</span>)
+    </summary>
+    <div id="games_added_list" data-game-search-target="countCountainer"></div>
+  </details>
+<% end %>

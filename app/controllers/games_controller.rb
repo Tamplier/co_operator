@@ -8,6 +8,11 @@ class GamesController < ApplicationController
   end
 
   def search_modal
-    @games = params[:query].present? ? Game.search_by_title(params[:query]) : nil
+    query = params[:query]
+    return unless query.present?
+
+    @game_presenters = Game.search_by_title(query).map do |game|
+      ::Account::GamePresenter.new(game, context: :search_modal, profile: current_user&.account_profile)
+    end
   end
 end

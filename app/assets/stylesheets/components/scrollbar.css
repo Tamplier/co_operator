@@ -1,0 +1,6 @@
+@layer components {
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #52525b transparent;
+  }
+}

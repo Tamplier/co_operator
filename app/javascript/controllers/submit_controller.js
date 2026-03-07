@@ -3,32 +3,43 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   connect() {
     this.submitStart = this.submitStart.bind(this);
+    this.submitEnd = this.submitEnd.bind(this);
+    this.wasButtonHidden = false;
     window.addEventListener("turbo:submit-start", this.submitStart);
+    window.addEventListener("turbo:submit-end", this.submitEnd);
   }
 
   disconnect() {
     this.element.removeEventListener("turbo:submit-start", this.submitStart);
-  }
+    this.element.removeEventListener("turbo:submit-end", this.submitEnd);
+  };
 
-  disableAllButtons() {
+  toggleAllButtons() {
     this.element.querySelectorAll('button').forEach(element => {
-      element.disabled = true;
+      element.disabled = !element.disabled;
     });
   }
 
+  submitEnd(event) {
+    this.toggleAllButtons()
+    if (this.wasButtonHidden) {
+      const button = this.getSpinnterTarget() || event.detail.formSubmission.submitter;
+      button.classList.add("hidden");
+    }
+  }
+
   submitStart(event) {
-    this.disableAllButtons()
-    const button = event.detail.formSubmission.submitter || this.getSpinnterTarget();
+    this.toggleAllButtons()
+    const button = this.getSpinnterTarget() || event.detail.formSubmission.submitter;
     if (!button) return;
 
     this.button = button;
 
-    this.originalHTML = button.innerHTML;
     this.originalWidth = button.offsetWidth;
-
     button.style.minWidth = `${this.originalWidth}px`;
-
     button.disabled = true;
+    this.wasButtonHidden = button.classList.contains("hidden") || this.wasButtonHidden;
+    button.classList.remove("hidden");
 
     button.innerHTML = `
       <span class="spinner_container">
@@ -37,7 +48,7 @@ export default class extends Controller {
     `;
   }
 
-  getSpinnterTarget() {}
+  getSpinnterTarget() { }
 
   spinnerSVG() {
     return `

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_05_133618) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_090851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -34,6 +34,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_05_133618) do
     t.index ["recipient_id"], name: "index_account_friend_requests_on_recipient_id"
     t.index ["requester_id", "recipient_id"], name: "index_account_friend_requests_on_requester_id_and_recipient_id", unique: true, where: "(status <> 1)"
     t.index ["requester_id"], name: "index_account_friend_requests_on_requester_id"
+  end
+
+  create_table "account_games", force: :cascade do |t|
+    t.bigint "account_profile_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "game_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_profile_id", "game_id"], name: "index_account_games_on_account_profile_id_and_game_id", unique: true
+    t.index ["account_profile_id"], name: "index_account_games_on_account_profile_id"
+    t.index ["game_id"], name: "index_account_games_on_game_id"
   end
 
   create_table "account_preffered_languages", force: :cascade do |t|
@@ -263,6 +273,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_05_133618) do
   add_foreign_key "account_black_lists", "account_profiles", column: "target_id"
   add_foreign_key "account_friend_requests", "account_profiles", column: "recipient_id"
   add_foreign_key "account_friend_requests", "account_profiles", column: "requester_id"
+  add_foreign_key "account_games", "account_profiles"
+  add_foreign_key "account_games", "games"
   add_foreign_key "account_preffered_languages", "account_profiles"
   add_foreign_key "account_preffered_languages", "languages"
   add_foreign_key "account_scheduled_games", "games"
