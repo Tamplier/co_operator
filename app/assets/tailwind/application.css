@@ -5,3 +5,5 @@
 @import "../stylesheets/components/inline_form.css";
 @import "../stylesheets/components/tooltip.css";
 @import "../stylesheets/components/scrollbar.css";
+
+@import "../stylesheets/utilities/bounce.css";

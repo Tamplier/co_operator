@@ -9,7 +9,6 @@ export default class extends SubmitController {
     super.connect();
     useDebounce(this, { wait: 300 });
 
-    this.updateCounter();
     this.observer = new MutationObserver(() => this.updateCounter());
     this.observer.observe(
       this.countCountainerTarget,
@@ -35,7 +34,9 @@ export default class extends SubmitController {
   updateCounter() {
     if (!this.counterTarget) return;
 
-    const games = this.countCountainerTarget.querySelectorAll(":scope > div")
-    this.counterTarget.textContent = games.length
+    const bounceController = this.application.getControllerForElementAndIdentifier(this.counterTarget, "bounce");
+    const games = this.countCountainerTarget.querySelectorAll(":scope > div");
+    this.counterTarget.textContent = games.length;
+    if (bounceController) bounceController.trigger()
   }
 }

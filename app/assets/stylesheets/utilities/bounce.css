@@ -1,0 +1,12 @@
+@keyframes bounceTarget {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.45); }
+  70%  { transform: scale(.9); }
+  100% { transform: scale(1); }
+}
+
+@layer utilities {
+  .bounce {
+    animation: bounceTarget .4s cubic-bezier(.36,.07,.19,.97);
+  }
+}
