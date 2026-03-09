@@ -9,7 +9,7 @@
                 class: 'flex-1 flex',
                 data: { turbo_frame: :search_results, 'game-search-target': 'form' } do |f| %>
     <%= f.search_field :query,
-                       value: @query,
+                       value: params[:query],
                        type: :text,
                        placeholder: 'Search games by title...',
                        autocomplete: 'off',

@@ -1,6 +1,6 @@
 <%= turbo_frame_tag :search_results do %>
   <% if @game_presenters.blank? %>
-    <% message = @query.blank? ? 'Start typing the game title...' : 'Oops... There are no games matching the query' %>
+    <% message = params[:query].blank? ? 'Start typing the game title...' : 'Oops... There are no games matching the query' %>
     <!-- Empty state -->
     <div id="emptyState" class="py-12 text-center justify-center text-gray-500 grow flex flex-col">
       <%= icon 'magnifying-glass', class: 'w-12 h-12 mx-auto mb-3 text-gray-600' %>
