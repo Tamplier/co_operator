@@ -1,0 +1,22 @@
+<div id="my_games_list">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold flex items-center gap-2">
+      <%= image_tag('logo.svg', class: 'w-7 h-7 inline') %>
+      My games
+    </h2>
+    <% if @edit_mode %>
+      <%= link_to find_account_profile_games_path,
+                  class: 'cta flex items-center gap-2',
+                  data: { turbo_frame: :modal } do %>
+        <%= icon 'plus', class: 'w-5 h-5' %>
+        Add Game
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @profile.games.each do |game| %>
+      <%= render 'account/profiles/my_games/game_card', game: game %>
+    <% end %>
+  </div>
+</div>

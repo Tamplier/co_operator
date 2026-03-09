@@ -5,13 +5,18 @@ export default class extends Controller {
     this.submitStart = this.submitStart.bind(this);
     this.submitEnd = this.submitEnd.bind(this);
     this.wasButtonHidden = false;
-    window.addEventListener("turbo:submit-start", this.submitStart);
-    window.addEventListener("turbo:submit-end", this.submitEnd);
+    this.#findForm();
+    this.form.addEventListener("turbo:submit-start", this.submitStart);
+    this.form.addEventListener("turbo:submit-end", this.submitEnd);
+  }
+
+  #findForm() {
+    this.form = this.element.closest('form') || this.element
   }
 
   disconnect() {
-    this.element.removeEventListener("turbo:submit-start", this.submitStart);
-    this.element.removeEventListener("turbo:submit-end", this.submitEnd);
+    this.form.removeEventListener("turbo:submit-start", this.submitStart);
+    this.form.removeEventListener("turbo:submit-end", this.submitEnd);
   };
 
   toggleAllButtons() {

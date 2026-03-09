@@ -8,18 +8,22 @@ module Account
     before_action :authenticate_user!, except: [:find]
 
     def add
+      @edit_mode = true
       @profile.games << @game
       render turbo_stream: [
         turbo_stream.update(@presenter.dom_id('search_'), html: render_single_result(@presenter, 'search_')),
-        turbo_stream.append(:games_added_list, html: render_single_result(@presenter, ''))
+        turbo_stream.append(:games_added_list, html: render_single_result(@presenter, '')),
+        turbo_stream.update('my_games_list', partial: 'account/profiles/games_info')
       ]
     end
 
     def remove
+      @edit_mode = true
       @profile.account_games.find_by(game: @game).destroy
       render turbo_stream: [
         turbo_stream.update(@presenter.dom_id('search_'), html: render_single_result(@presenter, 'search_')),
-        turbo_stream.remove(@presenter.dom_id)
+        turbo_stream.remove(@presenter.dom_id),
+        turbo_stream.update('my_games_list', partial: 'account/profiles/games_info')
       ]
     end
 

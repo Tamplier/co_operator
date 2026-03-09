@@ -48,12 +48,12 @@ class TextInlineInput < SimpleForm::Inputs::StringInput
 
   def submit_button
     accept_icon = template.icon('check', class: 'w-4 h-4')
-    template.content_tag(:button, accept_icon, type: 'submit')
+    template.content_tag(:button, accept_icon, type: 'submit', class: 'cta')
   end
 
   def cancel_link
     cancel_icon = template.icon('x-mark', class: 'w-4 h-4')
-    cancel_options = { class: 'inline-cancel', data: { action: 'click->inline-text-input#toggle:prevent' } }
+    cancel_options = { class: 'cta inline-cancel', data: { action: 'click->inline-text-input#toggle:prevent' } }
     template.button_tag(cancel_icon, cancel_options)
   end
 

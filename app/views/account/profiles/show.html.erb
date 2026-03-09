@@ -1,3 +1,7 @@
-<div class="bg-gray-800 rounded-xl border border-gray-700 p-6 sm:p-8 mb-6">
+<% block_class = 'bg-gray-800 rounded-xl border border-gray-700 p-6 sm:p-8 mb-6' %>
+<div class="<%= block_class %>">
   <%= render 'account/profiles/base_info' %>
+</div>
+<div class="<%= block_class %>">
+  <%= render 'account/profiles/games_info' %>
 </div>

@@ -1,0 +1,29 @@
+<%# locals: (game:) %>
+
+<div id="<%= dom_id(game) %>"
+     class="game-card relative bg-linear-to-br from-blue-900/20 to-cyan-900/20 border
+          border-blue-700/30 rounded-xl p-5 hover:shadow-xl hover:shadow-blue-900/20">
+  <%= button_to remove_account_profile_game_path(game),
+                method: :delete,
+                data: { turbo_stream: true, controller: 'submit' },
+                class: 'absolute top-2 right-2 p-1 bg-gray-800 hover:bg-blue-900 rounded flex items-center justify-center
+                        text-gray-400 hover:text-blue-300 transition-colors' do %>
+    <%= icon 'x-mark', class: 'w-5 h-5' %>
+  <% end %>
+  <%= link_to game_path(game) do %>
+  <div class="flex items-center gap-3 mb-4">
+    <%= image_tag(game.preview_url(:small)) %>
+    <h3 class="font-semibold text-lg truncate"><%= game.title %></h3>
+  </div>
+  <div class="flex items-center justify-between text-sm pt-4 border-t border-gray-700">
+      <div>
+          <div class="text-gray-400">Sessions</div>
+          <div class="text-xl font-bold text-blue-400">15</div>
+      </div>
+      <div class="text-right">
+          <div class="text-gray-400">Hours</div>
+          <div class="text-xl font-bold text-blue-400">89</div>
+      </div>
+  </div>
+  <% end %>
+</div>
