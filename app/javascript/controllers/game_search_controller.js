@@ -3,7 +3,7 @@ import SubmitController from "controllers/submit_controller"
 
 export default class extends SubmitController {
   static debounces = ["search"]
-  static targets = ["details", "resultsLoader", "form", "counter", "countCountainer"]
+  static targets = ["details", "form", "counter", "countCountainer"]
 
   connect() {
     super.connect();
@@ -25,10 +25,6 @@ export default class extends SubmitController {
       this.formTarget.requestSubmit();
       if (this.hasDetailsTarget) this.detailsTarget.open = true;
     }
-  }
-
-  getSpinnterTarget() {
-    return this.resultsLoaderTarget;
   }
 
   updateCounter() {

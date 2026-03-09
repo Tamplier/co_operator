@@ -47,8 +47,8 @@ class ImageUploadInput < SimpleForm::Inputs::FileInput
   # Options
 
   def w_options
-    w_options = html_options_for(:wrapper, [])
-    w_options[:data] = { data: { controller: 'image-upload' } }
+    html_options_for(:wrapper, [])
+    # w_options[:data] = { data: { controller: 'image-upload' } }
   end
 
   def input_options
@@ -60,7 +60,7 @@ class ImageUploadInput < SimpleForm::Inputs::FileInput
   def upload_button_options
     button_options = { class: 'image-upload-button', type: :button }
     button_options[:data] = {
-      image_upload_target: 'button',
+      image_upload_target: 'button spinner',
       action: 'click->image-upload#open dragover->image-upload#dragover drop->image-upload#drop ' \
               'dragenter->image-upload#dragenter dragleave->image-upload#dragleave'
     }

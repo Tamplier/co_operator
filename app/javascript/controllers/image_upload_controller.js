@@ -39,10 +39,6 @@ export default class extends SubmitController {
     this.buttonTarget.classList.remove("dragging");
   }
 
-  getSpinnterTarget() {
-    return this.buttonTarget;
-  }
-
   deleteFile() {
     this.addHiddenInput("account_profile[remove_avatar]", 1);
     this.form.requestSubmit();

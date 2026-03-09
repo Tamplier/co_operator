@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Paginatable
 
   # default_form_builder AppFormBuilder
 

@@ -29,5 +29,9 @@ module CoOperator
     # Add presenters
     config.autoload_paths << Rails.root.join('app', 'presenters')
     config.eager_load_paths << Rails.root.join('app', 'presenters')
+
+    # Lib
+    config.autoload_paths << Rails.root.join('app', 'lib')
+    config.eager_load_paths << Rails.root.join('app', 'lib')
   end
 end

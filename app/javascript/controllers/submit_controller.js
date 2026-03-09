@@ -1,61 +1,60 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  connect() {
+  static targets = ["spinner"];
+
+  initialize() {
     this.submitStart = this.submitStart.bind(this);
     this.submitEnd = this.submitEnd.bind(this);
-    this.wasButtonHidden = false;
-    this.#findForm();
-    this.form.addEventListener("turbo:submit-start", this.submitStart);
-    this.form.addEventListener("turbo:submit-end", this.submitEnd);
   }
 
-  #findForm() {
-    this.form = this.element.closest('form') || this.element
+  connect() {
+    this.wasButtonHidden = false;
+    this.element.addEventListener("turbo:submit-start", this.submitStart);
+    this.element.addEventListener("turbo:submit-end", this.submitEnd);
   }
 
   disconnect() {
-    this.form.removeEventListener("turbo:submit-start", this.submitStart);
-    this.form.removeEventListener("turbo:submit-end", this.submitEnd);
+    this.element.removeEventListener("turbo:submit-start", this.submitStart);
+    this.element.removeEventListener("turbo:submit-end", this.submitEnd);
   };
 
-  toggleAllButtons() {
-    this.element.querySelectorAll('button').forEach(element => {
-      element.disabled = !element.disabled;
-    });
-  }
-
   submitEnd(event) {
-    this.toggleAllButtons()
+    this.#toggleAllButtons()
     if (this.wasButtonHidden) {
-      const button = this.getSpinnterTarget() || event.detail.formSubmission.submitter;
+      const button = this.#getSpinnerTarget(event);
       button.classList.add("hidden");
     }
   }
 
   submitStart(event) {
-    this.toggleAllButtons()
-    const button = this.getSpinnterTarget() || event.detail.formSubmission.submitter;
+    const button = this.#getSpinnerTarget(event);
     if (!button) return;
 
+    this.#toggleAllButtons()
     this.button = button;
-
     this.originalWidth = button.offsetWidth;
     button.style.minWidth = `${this.originalWidth}px`;
     button.disabled = true;
     this.wasButtonHidden = button.classList.contains("hidden") || this.wasButtonHidden;
     button.classList.remove("hidden");
 
-    button.innerHTML = `
-      <span class="spinner_container">
-        ${this.spinnerSVG()}
-      </span>
-    `;
+    button.innerHTML = `<span class="spinner_container">${this.#spinnerSVG()}</span>`;
   }
 
-  getSpinnterTarget() { }
+  #toggleAllButtons() {
+    this.element.querySelectorAll('button').forEach(element => {
+      element.disabled = !element.disabled;
+    });
+  }
 
-  spinnerSVG() {
+  #getSpinnerTarget(event) {
+    return this.hasSpinnerTarget
+      ? this.spinnerTarget
+      : event.detail.formSubmission.submitter;
+  }
+
+  #spinnerSVG() {
     return `
       <svg fill="none" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10"

@@ -7,3 +7,8 @@ application.debug = false;
 window.Stimulus = application;
 
 export { application };
+
+Turbo.StreamActions.reload_frame = function () {
+  const frame = document.getElementById(this.target)
+  frame?.reload()
+}

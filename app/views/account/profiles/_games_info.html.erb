@@ -1,4 +1,4 @@
-<div id="my_games_list">
+<div>
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-xl font-semibold flex items-center gap-2">
       <%= image_tag('logo.svg', class: 'w-7 h-7 inline') %>
@@ -13,10 +13,11 @@
       <% end %>
     <% end %>
   </div>
-
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @profile.games.each do |game| %>
-      <%= render 'account/profiles/my_games/game_card', game: game %>
-    <% end %>
+  <div data-controller="submit"
+       data-action="turbo:click->submit#submitStart turbo:before-fetch-response->submit#submitEnd">
+    <div data-submit-target="spinner"
+         class="absolute inset-0 bg-black/80 hidden rounded-xl flex items-center justify-center z-20">
+    </div>
+    <%= turbo_frame_tag :my_games_list, src: account_profile_games_path(@profile) %>
   </div>
 </div>
