@@ -106,4 +106,4 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-gem 'rails_icons', '~> 1.6'
+gem 'rails_icons', '~> 1.7'
