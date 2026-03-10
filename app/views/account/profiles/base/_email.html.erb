@@ -14,7 +14,7 @@
   <% end %>
 <% end %>
 
-<%= inline_field_frame(@profile, :email, update_email_account_profile_path(@profile)) do |f| %>
+<%= inline_field_frame(@profile, :email, update_email_account_profile_path) do |f| %>
   <div data-controller="tooltip">
     <%= f.simple_fields_for :user do |user_form| %>
       <div class="flex flex-row items-center gap-2">
@@ -30,7 +30,7 @@
     <% end %>
     <% if unconfirmed_email %>
       <span data-tooltip-target="content" class="tooltip hidden">
-        Resend confirmation instructions for <%= current_user.reload.unconfirmed_email %>
+        <%= "#{t '.resend_confirmation'} #{current_user.reload.unconfirmed_email}" %>
       </span>
     <% end %>
   </div>

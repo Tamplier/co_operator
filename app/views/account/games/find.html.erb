@@ -1,14 +1,15 @@
 <%= render 'shared/search_modal', search_url: find_account_profile_games_path do %>
   <details name="games_list" data-game-search-target="details" open>
-    <summary class="py-3 cursor-pounter select-none">Search results</summary>
+    <summary class="py-3 cursor-pounter select-none"><%= t '.search_results' %></summary>
     <%= render 'games/shared/search' %>
   </details>
   <details name="games_list">
     <summary class="py-3 cursor-pounter select-none">
-      Selected <span class="bg-gray-300 rounded-full text-gray-800
-                            p-2.5 text-s h-4 w-4 inline-flex items-center justify-center"
-                     data-controller="bounce"
-                     data-game-search-target="counter">0</span>
+      <%= t '.selected' %>
+      <span class="bg-gray-300 rounded-full text-gray-800
+                  p-2.5 text-s h-4 w-4 inline-flex items-center justify-center"
+            data-controller="bounce"
+            data-game-search-target="counter">0</span>
     </summary>
     <div id="games_added_list" data-game-search-target="countCountainer"></div>
   </details>

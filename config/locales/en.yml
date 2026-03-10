@@ -28,4 +28,29 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  shared:
+    sidebar:
+      home: 'Home'
+      my_events: 'My Events'
+      friends: 'Friends'
+      create_event: 'Create Event'
+    modal:
+      search_results: 'Search results'
+      selected: 'Selected'
+    search_modal:
+      search_placeholder: 'Enter a game title...'
+  account:
+    games:
+      index:
+        no_games: "Add games you'd like to find people to play with."
+    profiles:
+      base:
+        email:
+          resend_confirmation: 'Resend confirmation instructions for'
+      games_info:
+        title: 'My Games'
+        add_game: "Add Game"
+  games:
+    shared:
+      search:
+        no_games: 'Oops... no games matching your query were found'
