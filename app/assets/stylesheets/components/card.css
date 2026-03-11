@@ -1,0 +1,16 @@
+@layer components {
+  .card {
+    @apply relative bg-linear-to-br from-blue-900/20 to-cyan-900/20 border;
+    @apply border-blue-700/30 rounded-xl p-5 hover:shadow-xl hover:shadow-blue-900/20;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover {
+      transform: translateY(-4px);
+  }
+
+  .delete_card {
+    @apply absolute top-2 right-2 p-1 bg-gray-800 hover:bg-blue-900 rounded flex items-center justify-center;
+    @apply text-gray-400 hover:text-blue-300 transition-colors;
+  }
+}

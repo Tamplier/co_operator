@@ -8,7 +8,7 @@ module Account
     before_action :authenticate_user!, except: %i[index find]
 
     def index
-      @profile = Profile.friendly.find(params[:profile_id]) || current_user.account_profile
+      @profile = Profile.friendly.find(params[:profile_id])
       @edit_mode = policy(@profile).update?
       @pagination, @games = paginate(@profile.games.order('account_games.created_at asc'))
     end

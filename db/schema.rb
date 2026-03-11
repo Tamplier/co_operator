@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_090851) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_11_115522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -163,14 +163,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_090851) do
   create_table "schedules", force: :cascade do |t|
     t.boolean "active", null: false
     t.datetime "created_at", null: false
-    t.time "end_time", null: false
+    t.integer "duration", null: false
     t.integer "owner_id", null: false
     t.string "owner_type", null: false
     t.string "recurrence_rule", limit: 255
     t.datetime "reference_date", null: false
-    t.time "start_time", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_id", "owner_type", "reference_date", "start_time"], name: "idx_on_owner_id_owner_type_reference_date_start_tim_8e339f2eb8", unique: true
     t.index ["owner_type", "owner_id"], name: "index_schedules_on_owner"
   end
 

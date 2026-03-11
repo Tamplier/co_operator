@@ -1,13 +1,11 @@
 <%# locals: (game:) %>
 
-<div class="game-card relative bg-linear-to-br from-blue-900/20 to-cyan-900/20 border
-          border-blue-700/30 rounded-xl p-5 hover:shadow-xl hover:shadow-blue-900/20">
+<div class="card">
   <% if @edit_mode %>
     <%= button_to remove_account_profile_game_path(game),
                   method: :delete,
                   form: { data: { turbo_stream: true } },
-                  class: 'absolute top-2 right-2 p-1 bg-gray-800 hover:bg-blue-900 rounded flex items-center justify-center
-                          text-gray-400 hover:text-blue-300 transition-colors' do %>
+                  class: 'delete_card' do %>
       <%= icon 'x-mark', class: 'w-5 h-5' %>
     <% end %>
   <% end %>

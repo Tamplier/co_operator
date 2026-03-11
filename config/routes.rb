@@ -25,17 +25,20 @@ Rails.application.routes.draw do
   namespace :account do
     resources :profiles, only: %i[index show] do
       resources :games, only: %i[index]
+      resources :schedules, only: %i[index]
     end
     resource :profile, only: %i[] do
       get :me, on: :collection
       patch :update_base
       patch :update_email
 
-      resources :games, only: %i[index] do
+      resources :games, only: %i[] do
         get :find, on: :collection
         post :add, on: :member
         delete :remove, on: :member
       end
+
+      resources :schedules, except: %i[index]
     end
   end
 

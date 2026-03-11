@@ -50,6 +50,9 @@ en:
       games_info:
         title: 'My Games'
         add_game: "Add Game"
+      schedules_info:
+        title: 'Availability'
+        add_time: 'Add Time'
   games:
     shared:
       search:

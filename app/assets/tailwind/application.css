@@ -5,6 +5,11 @@
 @import "../stylesheets/components/inline_form.css";
 @import "../stylesheets/components/tooltip.css";
 @import "../stylesheets/components/scrollbar.css";
-@import "../stylesheets/components/game_card.css";
+@import "../stylesheets/components/card.css";
 
 @import "../stylesheets/utilities/bounce.css";
+
+
+@theme {
+  --color-brand-purple: rgb(150 79 155);
+}
