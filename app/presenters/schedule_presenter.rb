@@ -31,7 +31,7 @@ class SchedulePresenter < ApplicationPresenter
   private
 
   def format_date(date)
-    "#{localized_day_of_week(date.wday)} (#{date.strftime('%b %d')})"
+    "#{localized_day_of_week(date.wday)}, #{date.strftime('%b %d')}"
   end
 
   def format_time(time)
@@ -42,10 +42,18 @@ class SchedulePresenter < ApplicationPresenter
     rule = schedule.recurrence_rules.first
     days = rule.validations[:day]
 
-    if days
-      days.map { |d| localized_day_of_week(d.day) }
-    else
-      I18n.t('date.dayly')
+    return I18n.t('date.daily') unless days.present?
+
+    days = days.map(&:day)
+
+    ranges = days.sort.chunk_while { |a, b| a + 1 == b }.to_a
+
+    ranges.map do |range|
+      if range.size > 1
+        "#{localized_day_of_week(range.first)} – #{localized_day_of_week(range.last)}"
+      else
+        localized_day_of_week(range.first)
+      end
     end
   end
 

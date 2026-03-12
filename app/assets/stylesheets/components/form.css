@@ -15,6 +15,10 @@
     @apply opacity-75;
   }
 
+  .spinner_wrapper {
+    @apply absolute inset-0 bg-black/80 flex items-center justify-center;
+  }
+
   .text_input {
     @apply w-full px-4 py-2 bg-gray-700 text-gray-100 placeholder-gray-500;
     @apply border border-gray-600 rounded-lg;

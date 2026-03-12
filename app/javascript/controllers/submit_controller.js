@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["spinner"];
+  static values = { wrapperClasses: Array, directInjection: { type: Boolean, default: false } };
 
   initialize() {
     this.submitStart = this.submitStart.bind(this);
@@ -9,9 +10,9 @@ export default class extends Controller {
   }
 
   connect() {
-    this.wasButtonHidden = false;
     this.element.addEventListener("turbo:submit-start", this.submitStart);
     this.element.addEventListener("turbo:submit-end", this.submitEnd);
+    this.#connectWrapper();
   }
 
   disconnect() {
@@ -21,25 +22,25 @@ export default class extends Controller {
 
   submitEnd(event) {
     this.#toggleAllButtons()
-    if (this.wasButtonHidden) {
-      const button = this.#getSpinnerTarget(event);
-      button.classList.add("hidden");
+    if (this.wasTargetHidden) {
+      const target = this.#getSpinnerTarget(event);
+      target.classList.add("hidden");
     }
   }
 
   submitStart(event) {
-    const button = this.#getSpinnerTarget(event);
-    if (!button) return;
+    const target = this.#getSpinnerTarget(event);
+    if (!target) return;
 
     this.#toggleAllButtons()
-    this.button = button;
-    this.originalWidth = button.offsetWidth;
-    button.style.minWidth = `${this.originalWidth}px`;
-    button.disabled = true;
-    this.wasButtonHidden = button.classList.contains("hidden") || this.wasButtonHidden;
-    button.classList.remove("hidden");
+    this.target = target;
+    this.originalWidth = target.offsetWidth;
+    target.style.minWidth = `${this.originalWidth}px`;
+    target.disabled = true;
+    this.wasTargetHidden = target.classList.contains("hidden") || this.wasTargetHidden;
+    target.classList.remove("hidden");
 
-    button.innerHTML = `<span class="spinner_container">${this.#spinnerSVG()}</span>`;
+    target.innerHTML = `<span class="spinner_container">${this.#spinnerSVG()}</span>`;
   }
 
   #toggleAllButtons() {
@@ -48,10 +49,23 @@ export default class extends Controller {
     });
   }
 
+  #connectWrapper() {
+    if (!this.hasSpinnerTarget) { this.target = null; }
+    else {
+      if (this.directInjectionValue) {
+        this.target = this.spinnerTarget;
+        return;
+      }
+
+      this.target = document.createElement('div');
+      this.target.classList.add('spinner_wrapper', 'hidden');
+      if (this.wrapperClassesValue.length > 0) this.target.classList.add(...this.wrapperClassesValue);
+      this.spinnerTarget.append('', this.target)
+    }
+  }
+
   #getSpinnerTarget(event) {
-    return this.hasSpinnerTarget
-      ? this.spinnerTarget
-      : event.detail.formSubmission.submitter;
+    return this.target || event.detail.formSubmission.submitter;
   }
 
   #spinnerSVG() {
