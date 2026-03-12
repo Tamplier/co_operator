@@ -32,13 +32,8 @@ Rails.application.routes.draw do
       patch :update_base
       patch :update_email
 
-      resources :games, only: %i[] do
-        get :find, on: :collection
-        post :add, on: :member
-        delete :remove, on: :member
-      end
-
-      resources :schedules, except: %i[index]
+      resources :games, only: %i[new create destroy], as: :my_games
+      resources :schedules, except: %i[index], as: :my_schedules
     end
   end
 

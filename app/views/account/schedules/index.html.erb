@@ -3,7 +3,7 @@
     <% @schedule_presenters.each do |presenter| %>
       <div class="card py-3 px-4 flex flex-row justify-between items-baseline gap-4">
         <% if @edit_mode %>
-          <%= button_to account_profile_schedule_path(presenter.schedule),
+          <%= button_to account_profile_my_schedule_path(presenter.schedule),
                         method: :delete,
                         form: { class: 'absolute top-1 right-2', data: { turbo_stream: true } },
                         class: 'delete_card' do %>

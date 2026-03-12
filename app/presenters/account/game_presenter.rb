@@ -29,6 +29,10 @@ module Account
       game_action[:method]
     end
 
+    def action_params
+      game_action[:params]
+    end
+
     def action_data
       case context
       when :search_modal
@@ -48,9 +52,9 @@ module Account
       return { icon: 'chevron-right', url: game_path(game), method: :get } if context == :search_modal
 
       if profile_game_ids.include?(game.id)
-        { icon: 'trash', url: remove_account_profile_game_path(game), method: :delete }
+        { icon: 'trash', url: account_profile_my_game_path(game), method: :delete, params: { id: game.id } }
       else
-        { icon: 'plus', url: add_account_profile_game_path(game), method: :puts }
+        { icon: 'plus', url: account_profile_my_games_path, method: :puts, params: { id: game.id } }
       end
     end
   end

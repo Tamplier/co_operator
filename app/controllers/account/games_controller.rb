@@ -3,9 +3,9 @@
 module Account
   class GamesController < ApplicationController
     SINGLE_RESULT_PARTIAL = 'games/shared/search_result_game'
+    before_action :authenticate_user!, except: %i[index new]
     before_action :set_profile, except: [:index]
-    before_action :set_game, only: %i[add remove]
-    before_action :authenticate_user!, except: %i[index find]
+    before_action :set_game, only: %i[create destroy]
 
     def index
       @profile = Profile.friendly.find(params[:profile_id])
@@ -13,7 +13,14 @@ module Account
       @pagination, @games = paginate(@profile.games.order('account_games.created_at asc'))
     end
 
-    def add
+    def new
+      query = params[:query]
+      return if query.blank?
+
+      @game_presenters = ::Game.search_by_title(query).map { build_presenter(it) }
+    end
+
+    def create
       @profile.games << @game unless @profile.games.exists?(@game.id)
       @edit_mode = true
       render turbo_stream: [
@@ -23,7 +30,7 @@ module Account
       ]
     end
 
-    def remove
+    def destroy
       @profile.account_games.find_by(game: @game).destroy
       @edit_mode = true
       render turbo_stream: [
@@ -31,13 +38,6 @@ module Account
         turbo_stream.remove(@presenter.dom_id),
         turbo_stream.action(:reload_frame, 'my_games_list')
       ]
-    end
-
-    def find
-      query = params[:query]
-      return if query.blank?
-
-      @game_presenters = ::Game.search_by_title(query).map { build_presenter(it) }
     end
 
     private
@@ -57,6 +57,7 @@ module Account
 
     def set_profile
       @profile = current_user.account_profile
+      authorize @profile, :update?
     end
   end
 end

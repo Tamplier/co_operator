@@ -2,7 +2,7 @@
 
 <div class="card">
   <% if @edit_mode %>
-    <%= button_to remove_account_profile_game_path(game),
+    <%= button_to account_profile_my_game_path(game),
                   method: :delete,
                   form: { data: { turbo_stream: true } },
                   class: 'delete_card' do %>

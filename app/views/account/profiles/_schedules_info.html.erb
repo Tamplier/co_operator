@@ -5,7 +5,7 @@
       <%= t '.title' %>
     </h2>
     <% if @edit_mode %>
-      <%= link_to find_account_profile_games_path,
+      <%= link_to new_account_profile_my_schedule_path,
                   class: 'cta flex items-center gap-2 px-2',
                   data: { turbo_frame: :modal } do %>
         <%= icon 'plus', class: 'w-5 h-5' %>

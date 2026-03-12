@@ -4,6 +4,7 @@
   <%= button_to game_presenter.action_url,
                 method: game_presenter.action_method,
                 form: { data: game_presenter.action_data },
+                params: game_presenter.action_params,
                 class: 'w-full text-left flex items-center gap-3
                         sm:px-3 px-0 py-2 rounded-lg hover:bg-gray-700 group' do %>
     <%= image_tag game_presenter.preview_url(:small), class: 'rounded' %>

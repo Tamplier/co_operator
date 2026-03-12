@@ -1,4 +1,4 @@
-<%= render 'shared/search_modal', search_url: find_account_profile_games_path do %>
+<%= render 'shared/search_modal', search_url: new_account_profile_my_game_path do %>
   <details name="games_list" data-game-search-target="details" open>
     <summary class="py-3 cursor-pounter select-none"><%= t '.search_results' %></summary>
     <%= render 'games/shared/search' %>
