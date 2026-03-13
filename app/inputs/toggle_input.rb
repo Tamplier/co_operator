@@ -7,7 +7,7 @@ class ToggleInput < SimpleForm::Inputs::Base
     size = options.delete(:size) || :md
     cls = "peer toggle-base toggle-dot toggle-#{size}"
 
-    custom_label = options.delete(:label)
+    custom_label = options.delete(:label) || label_text
 
     @builder.template.content_tag(:label, class: 'toggle-wrapper') do
       @builder.check_box(attribute_name, input_html_options.merge(class: 'sr-only peer', id: id)) +

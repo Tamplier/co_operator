@@ -16,7 +16,10 @@
   <% end %>
 <% end %>
 
-<%= render 'shared/modal', title: title_html, stretch_mobile: true, wrapper_controller: 'game-search' do %>
+<%= render 'shared/modal',
+           title: title_html,
+           classes: 'max-w-2xl min-h-[90dvh]',
+           wrapper_controller: 'game-search' do %>
   <div data-game-search-target="spinner"
        data-game-search-wrapper-classes-value='["rounded-b-xl", "z-20"]'></div>
   <div class="sm:max-h-96 overflow-y-auto flex-1 min-h-0 grow flex flex-col scrollbar -mx-2 px-2">

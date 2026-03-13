@@ -1,4 +1,4 @@
-<%# locals: (stretch_mobile: false, title: nil, wrapper_controller: nil) %>
+<%# locals: (classes: 'max-w-2xl', title: nil, wrapper_controller: nil) %>
 
 <%= turbo_frame_content_for :modal do %>
   <div data-controller="modal <%= wrapper_controller.presence %>"
@@ -6,11 +6,8 @@
     <div id="backdrop"
          class="backdrop bg-black/50 backdrop-blur-sm inset-0 fixed"
          data-action="click->modal#backdropClick"></div>
-    <div class="
-      bg-gray-800 border-gray-700 border rounded-xl shadow-none sm:shadow-xl
-      sm:min-h-0 w-full max-w-2xl overflow-hidden z-60
-      relative flex flex-col m-auto <%= stretch_mobile ? 'min-h-[90dvh]' : '' %>
-    ">
+    <div class="bg-gray-800 border-gray-700 border rounded-xl shadow-none sm:shadow-xl
+                sm:min-h-0 w-full overflow-hidden z-60 relative flex flex-col m-auto <%= classes %>">
       <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-700">
         <% if title.html_safe? %>
           <%= title %>

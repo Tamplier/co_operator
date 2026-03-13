@@ -10,4 +10,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def link_if_editable(path, editable, **, &)
+    return capture(&) unless editable
+
+    link_to(path, **, &)
+  end
 end

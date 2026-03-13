@@ -28,6 +28,25 @@
 #       enabled: "ON"
 
 en:
+  activerecord:
+    schedule:
+      daily: 'Daily'
+    errors:
+      models:
+        schedule:
+          must_be_positive: 'must be a positive value.'
+  simple_form:
+    required:
+      mark: ''
+      text: ''
+      html: ''
+    labels:
+      schedule:
+        start_time: 'Start Time'
+        duration_hours: 'Duration (hours)'
+        duration_minutes: 'Duration (minutes)'
+        recurring: 'Recurring event'
+        reference_date: 'Date'
   shared:
     sidebar:
       home: 'Home'

@@ -42,10 +42,9 @@ class SchedulePresenter < ApplicationPresenter
     rule = schedule.recurrence_rules.first
     days = rule.validations[:day]
 
-    return I18n.t('date.daily') unless days.present?
+    return I18n.t('activerecord.schedule.daily') unless days.present?
 
-    days = days.map(&:day)
-
+    days = days.map { |d| d.day.zero? ? 7 : d.day }
     ranges = days.sort.chunk_while { |a, b| a + 1 == b }.to_a
 
     ranges.map do |range|
@@ -58,6 +57,6 @@ class SchedulePresenter < ApplicationPresenter
   end
 
   def localized_day_of_week(day)
-    I18n.t('date.abbr_day_names')[day]
+    I18n.t('date.abbr_day_names')[day % 7]
   end
 end

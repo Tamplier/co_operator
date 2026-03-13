@@ -30,7 +30,7 @@
   }
 
   .cta {
-    @apply px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium cursor-pointer;
+    @apply px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium cursor-pointer relative;
     @apply disabled:cursor-not-allowed disabled:bg-purple-500 disabled:hover:bg-purple-400;
   }
 

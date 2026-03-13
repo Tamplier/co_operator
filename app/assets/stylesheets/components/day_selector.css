@@ -1,0 +1,18 @@
+@layer components {
+  .day_selector {
+    @apply flex flex-1;
+  }
+
+  .day_selector .day_input {
+    @apply sr-only;
+  }
+
+  .day_selector .day_label {
+    @apply flex items-center justify-center w-10 h-10 text-sm font-medium cursor-pointer flex-1;
+    @apply border rounded-lg hover:bg-gray-600 transition-colors bg-gray-700 text-gray-400 border-gray-600;
+  }
+
+  .day_input:checked + .day_label{
+    @apply bg-purple-600 text-white border border-purple-600 hover:bg-purple-700;
+  }
+}

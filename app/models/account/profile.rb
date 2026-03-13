@@ -22,6 +22,8 @@ module Account
   class Profile < ApplicationRecord
     extend FriendlyId
 
+    attr_accessor :remove_avatar
+
     friendly_id :name, use: %i[slugged history finders], slug_limit: 40
 
     belongs_to :user
@@ -58,7 +60,7 @@ module Account
       attachable.variant :medium, resize_to_fill: [128, 128]
     end
 
-    attr_accessor :remove_avatar
+    validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
 
     accepts_nested_attributes_for :user, update_only: true
     before_save :purge_avatar_if_needed

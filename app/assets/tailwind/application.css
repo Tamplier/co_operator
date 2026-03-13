@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "../stylesheets/base/timepicker.css";
+@import "../stylesheets/base/number.css";
+
 @import "../stylesheets/components/toggle.css";
 @import "../stylesheets/components/alert.css";
 @import "../stylesheets/components/form.css";
@@ -6,6 +9,7 @@
 @import "../stylesheets/components/tooltip.css";
 @import "../stylesheets/components/scrollbar.css";
 @import "../stylesheets/components/card.css";
+@import "../stylesheets/components/day_selector.css";
 
 @import "../stylesheets/utilities/bounce.css";
 

@@ -1,0 +1,17 @@
+@layer base {
+  @media (pointer: fine) {
+
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+
+    input[type="time"]::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    input[type="time"] {
+      appearance: textfield;
+    }
+
+  }
+}

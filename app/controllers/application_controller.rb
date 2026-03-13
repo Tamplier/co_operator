@@ -12,7 +12,15 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  around_action :set_user_time_zone, if: :current_user
+
   def turbo_request?
     request.format.turbo_stream? || request.headers['Turbo-Frame'].present?
+  end
+
+  private
+
+  def set_user_time_zone(&)
+    Time.use_zone(current_user.account_profile.timezone, &)
   end
 end

@@ -14,7 +14,7 @@
     <% end %>
   </div>
   <div data-controller="submit"
-       data-action="turbo:click->submit#submitStart turbo:before-fetch-response->submit#submitEnd"
+       data-action="turbo:before-fetch-request->submit#submitStart turbo:before-fetch-response->submit#submitEnd"
        data-submit-target="spinner"
        data-submit-wrapper-classes-value='["rounded-xl", "z-20"]'>
     <%= turbo_frame_tag :my_schedules_list, src: account_profile_schedules_path(@profile) %>
