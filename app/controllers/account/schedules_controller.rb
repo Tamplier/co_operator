@@ -13,12 +13,14 @@ module Account
     end
 
     def new
-      @schedule = @profile.schedules.build(recurring: true, active: true)
+      @schedule = @profile.schedules.build
+      build_form
     end
 
     def create
-      @schedule = @profile.schedules.build(permitted_params)
-      if @schedule.save
+      @schedule = @profile.schedules.build
+      build_form(permitted_params)
+      if @form.save
         render turbo_stream: [
           turbo_stream.update(:modal, ''),
           turbo_stream.append(:schedules_container, partial: 'account/schedules/schedule_card',
@@ -30,11 +32,13 @@ module Account
     end
 
     def edit
+      build_form
       render :new
     end
 
     def update
-      if @schedule.update(permitted_params)
+      build_form(permitted_params)
+      if @form.save
         render turbo_stream: [
           turbo_stream.update(:modal, ''),
           turbo_stream.replace(helpers.dom_id(@schedule), partial: 'account/schedules/schedule_card',
@@ -62,9 +66,15 @@ module Account
       @schedule = ::Schedule.find(params[:id])
     end
 
+    def build_form(params = nil)
+      @form = ScheduleForm.new(@schedule, params)
+    end
+
     def permitted_params
-      permitted = params.expect(schedule: [:start_time, :duration_hours, :duration_minutes, :reference_date,
-                                           :recurring, :active, { days: [] }])
+      permitted = params.expect(
+        schedule: [:start_time, :duration_hours, :duration_minutes,
+                   :reference_date, :recurring, :active, { days: [] }]
+      )
       permitted[:days]&.compact_blank!
 
       permitted

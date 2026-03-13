@@ -22,30 +22,16 @@ class Schedule < ApplicationRecord
   OCCURRENCES_GENERATOR_PERIOD = 2.months
   OCCURRENCES_GENERATOR_OFFSET = 1.minute
 
-  attribute :start_time, :string
-  attribute :recurring, :boolean
-  attribute :duration_hours, :integer
-  attribute :duration_minutes, :integer
-  attribute :days
   attribute :recurrence_rule, IceCubeRuleType.new
 
   belongs_to :owner, polymorphic: true
   has_many :schedule_occurrences, dependent: :destroy
 
-  validate :duration_must_be_positive
+  validates :duration, numericality: { greater_than: 0 }
 
-  before_validation :build_from_form
   after_save :update_occurrences
 
   delegate_missing_to :schedule_object
-
-  def recurring
-    super || recurrence_rule.present?
-  end
-
-  def start_time
-    super || reference_date&.in_time_zone(Time.zone)&.strftime('%H:%M')
-  end
 
   def duration_hours
     return super if super
@@ -59,10 +45,6 @@ class Schedule < ApplicationRecord
     return 0 unless duration
 
     (duration.seconds - duration_hours.hours).in_minutes.to_i
-  end
-
-  def days
-    super || calculate_days
   end
 
   def schedule_object
@@ -85,16 +67,6 @@ class Schedule < ApplicationRecord
 
   private
 
-  def calculate_days # rubocop:disable Metrics/CyclomaticComplexity
-    return [] unless recurring
-
-    validations = recurrence_rule&.validations
-    days = validations&.[](:day)&.map(&:day)
-    return [] if days.blank?
-
-    Date::DAYNAMES.values_at(*days).map(&:downcase)
-  end
-
   # Validations
 
   def duration_must_be_positive
@@ -105,23 +77,6 @@ class Schedule < ApplicationRecord
   end
 
   # Callbacks
-
-  def build_from_form
-    return if start_time.blank? || (!recurring && reference_date.blank?)
-
-    self.duration = duration_hours.hours + duration_minutes.minutes
-    self.reference_date = Time.zone.parse("#{reference_date} #{start_time}")
-
-    build_rrule
-  end
-
-  def build_rrule
-    return unless recurring
-
-    rule = IceCube::Rule.weekly
-    rule = rule.day(*days.map(&:to_sym)) if days.present?
-    self.recurrence_rule = rule
-  end
 
   def update_occurrences
     return unless active

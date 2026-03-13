@@ -26,15 +26,15 @@ RSpec.describe Schedule, type: :model do
     let(:reference_date) { Time.now }
     let(:duration) { 1.hour }
     let(:ice_cube_schedule) { IceCube::Schedule.new(reference_date, duration: duration) }
-    let(:period) { 1 }
+    let(:period) { 2 }
 
-    %i[weekly].each do |period_base|
+    %i[weekly hourly monthly].each do |period_base|
       context "when period is #{period_base}" do
         let(:rule) { IceCube::Rule.send(period_base, period) }
 
         it 'updates occurrences list' do
           schedule = profile.schedules.create!(
-            duration_hours: duration,
+            duration: duration,
             reference_date: reference_date,
             recurrence_rule: rule,
             active: true

@@ -30,7 +30,8 @@
 en:
   activerecord:
     schedule:
-      daily: 'Daily'
+        daily: 'Daily'
+  activemodel:
     errors:
       models:
         schedule:
