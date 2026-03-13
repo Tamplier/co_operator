@@ -60,7 +60,7 @@ module Account
       attachable.variant :medium, resize_to_fill: [128, 128]
     end
 
-    validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
+    validates :timezone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
 
     accepts_nested_attributes_for :user, update_only: true
     before_save :purge_avatar_if_needed

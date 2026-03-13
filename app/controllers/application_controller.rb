@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_user_time_zone(&)
-    Time.use_zone(current_user.account_profile.timezone, &)
+    timezone = current_user&.account_profile&.timezone || 'UTC'
+    Time.use_zone(timezone, &)
   end
 end
