@@ -10,7 +10,7 @@
       <%= icon 'x-mark', class: 'w-5 h-5' %>
     <% end %>
   <% end %>
-  <%= link_if_editable(edit_account_profile_my_schedule_path(schedule), @edit_mode, data: { turbo_frame: :modal }) do %>
+  <%= link_conditional(edit_account_profile_my_schedule_path(schedule), @edit_mode, data: { turbo_frame: :modal }) do %>
   <div class="flex flex-row justify-between items-baseline gap-4">
     <div class="font-base mono text-gray-100 whitespace-nowrap">
       <%= presenter.display_time_range %>

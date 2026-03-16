@@ -11,8 +11,8 @@ module ApplicationHelper
     end
   end
 
-  def link_if_editable(path, editable, **, &)
-    return capture(&) unless editable
+  def link_conditional(path, condition, **, &)
+    return capture(&) unless condition
 
     link_to(path, **, &)
   end

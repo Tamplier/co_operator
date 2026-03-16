@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   namespace :account do
     resources :profiles, only: %i[index show] do
       resources :games, only: %i[index]
-      resources :schedules, only: %i[index]
+      resources :schedules, only: %i[index] do
+        get :calendar, on: :collection
+      end
     end
     resource :profile, only: %i[] do
       get :me, on: :collection

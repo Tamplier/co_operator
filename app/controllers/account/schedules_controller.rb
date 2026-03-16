@@ -2,14 +2,26 @@
 
 module Account
   class SchedulesController < ApplicationController
-    before_action :authenticate_user!, except: %i[index]
-    before_action :set_profile, except: [:index]
+    before_action :authenticate_user!, except: %i[index calendar]
+    before_action :set_profile, except: %i[index calendar]
     before_action :set_schedule, only: %i[edit update destroy]
 
     def index
       @profile = Profile.friendly.find(params[:profile_id])
       @edit_mode = policy(@profile).update?
-      @schedule_presenters = @profile.schedules.map { SchedulePresenter.new(it) }
+      schedules = @profile.schedules
+
+      if params[:filter].present?
+        @filter = Time.zone.parse(params[:filter]).to_date
+        schedules = schedules.filter { |s| s.occurs_on?(@filter) }
+      end
+      @schedule_presenters = schedules.map { SchedulePresenter.new(it) }
+    end
+
+    def calendar
+      @profile = Profile.friendly.find(params[:profile_id])
+      offset = params.fetch(:offset, 0).to_i
+      @calendar_presenter = Account::CalendarPresenter.new(@profile, offset)
     end
 
     def new
@@ -23,6 +35,7 @@ module Account
       if @form.save
         render turbo_stream: [
           turbo_stream.update(:modal, ''),
+          turbo_stream.action(:reload_frame, 'schedule_calendar'),
           turbo_stream.append(:schedules_container, partial: 'account/schedules/schedule_card',
                                                     locals: { presenter: SchedulePresenter.new(@schedule) })
         ]
@@ -41,6 +54,7 @@ module Account
       if @form.save
         render turbo_stream: [
           turbo_stream.update(:modal, ''),
+          turbo_stream.action(:reload_frame, 'schedule_calendar'),
           turbo_stream.replace(helpers.dom_id(@schedule), partial: 'account/schedules/schedule_card',
                                                           locals: { presenter: SchedulePresenter.new(@schedule) })
         ]
@@ -51,7 +65,10 @@ module Account
 
     def destroy
       @schedule.destroy
-      render turbo_stream: turbo_stream.remove(helpers.dom_id(@schedule))
+      render turbo_stream: [
+        turbo_stream.remove(helpers.dom_id(@schedule)),
+        turbo_stream.action(:reload_frame, 'schedule_calendar')
+      ]
     end
 
     private

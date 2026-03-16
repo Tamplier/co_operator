@@ -1,0 +1,23 @@
+@layer components {
+  .calendar {
+    .nav-link {
+      @apply cursor-pointer;
+    }
+
+    .nav-link.disabled {
+      @apply pointer-events-none cursor-not-allowed text-gray-600;
+    }
+
+    .day {
+      @apply text-gray-100 aspect-square flex items-center justify-center rounded-md;
+    }
+
+    .occupied {
+      @apply bg-gray-700;
+    }
+
+    .today {
+      @apply border-purple-600 border;
+    }
+  }
+}

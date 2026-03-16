@@ -50,6 +50,7 @@ module Account
     has_many :blacklisted, through: :outgoing_blacklist, source: :target
     has_many :blacklisted_by, through: :incoming_blacklist, source: :requester
     has_many :schedules, as: :owner, dependent: :destroy
+    has_many :schedule_occurrences, through: :schedules
     has_many :event_profiles, class_name: 'Social::EventProfile',
                               inverse_of: :account_profile,
                               dependent: :destroy

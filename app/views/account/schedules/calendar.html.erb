@@ -1,0 +1,27 @@
+<%= turbo_frame_tag :schedule_calendar do %>
+  <div class="flex items-center justify-between mb-4 text-gray-100">
+    <%= link_to(*@calendar_presenter.prev_month_params) do %>
+      &lt;
+    <% end %>
+    <span class="text-md font-medium"><%= @calendar_presenter.header_to_display %></span>
+    <%= link_to(*@calendar_presenter.next_month_params) do %>
+      &gt;
+    <% end %>
+  </div>
+  <div class="grid grid-cols-7 gap-1">
+    <% week_days.map(&:first).each do |day| %>
+      <div class="pt-1 pb-2 px-0 text-sm text-gray-400 flex items-center justify-center"><%= day %></div>
+    <% end %>
+    <% @calendar_presenter.weeks.each do |week| %>
+      <% week.each do |date| %>
+        <%= link_conditional account_profile_schedules_path(@profile, filter: date),
+                             @calendar_presenter.any_occurences?(date),
+                             data: { turbo_frame: 'schedules_list' } do %>
+          <div class="day <%= @calendar_presenter.date_classes(date) %>">
+            <%= date&.day %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

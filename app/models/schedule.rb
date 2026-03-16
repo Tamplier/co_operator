@@ -33,20 +33,6 @@ class Schedule < ApplicationRecord
 
   delegate_missing_to :schedule_object
 
-  def duration_hours
-    return super if super
-    return 0 unless duration
-
-    duration.seconds.in_hours.to_i
-  end
-
-  def duration_minutes
-    return super if super
-    return 0 unless duration
-
-    (duration.seconds - duration_hours.hours).in_minutes.to_i
-  end
-
   def schedule_object
     @schedule_object ||= begin
       localized_reference_date = reference_date&.in_time_zone(Time.zone)
@@ -66,15 +52,6 @@ class Schedule < ApplicationRecord
   end
 
   private
-
-  # Validations
-
-  def duration_must_be_positive
-    return if duration.positive?
-
-    errors.add(:duration_hours, :must_be_positive) unless duration_hours.positive?
-    errors.add(:duration_minutes, :must_be_positive) unless duration_minutes.positive?
-  end
 
   # Callbacks
 

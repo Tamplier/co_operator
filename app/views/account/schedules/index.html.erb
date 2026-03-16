@@ -1,4 +1,16 @@
-<%= turbo_frame_tag :my_schedules_list do %>
+<%= turbo_frame_tag :schedules_list do %>
+  <% if @filter.present? %>
+    <div class="flex items-center gap-2 mb-4">
+      <div class="text-xs text-gray-400">
+        <%= t('.filtered', filter: @filter.strftime('%B %d')) %>
+      </div>
+      <div>
+        <%= link_to account_profile_schedules_path(@profile), class: 'text-gray-400 hover:text-white' do %>
+          <%= icon 'x-mark', class: 'w-4 h-4' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div id="schedules_container" class="flex flex-col gap-2">
     <% @schedule_presenters.each do |presenter| %>
       <%= render 'account/schedules/schedule_card', presenter: presenter %>

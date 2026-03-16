@@ -63,6 +63,9 @@ en:
     games:
       index:
         no_games: "Add games you'd like to find people to play with."
+    schedules:
+      index:
+        filtered: "Filtered by date: %{filter}"
     profiles:
       base:
         email:

@@ -2,10 +2,13 @@
 
 module Account
   class ProfilesController < ApplicationController
-    before_action :set_profile
     before_action :authenticate_user!, except: [:show]
+    before_action :set_profile, except: [:show]
 
-    def show; end
+    def show
+      @profile = Account::Profile.friendly.find(params[:id])
+      @edit_mode = policy(@profile).update?
+    end
 
     def update_email
       common_update do
@@ -45,8 +48,9 @@ module Account
     end
 
     def set_profile
-      @profile = params[:id].present? ? Account::Profile.friendly.find(params[:id]) : current_user.account_profile
-      @edit_mode = policy(@profile).update?
+      @profile = current_user.account_profile
+      authorize @profile, :update?
+      @edit_mode = true
     end
 
     def profile_params
