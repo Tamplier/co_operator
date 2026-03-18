@@ -54,7 +54,7 @@ module Account
     end
 
     def profile_params
-      params.expect(account_profile: [:name, :slug, :avatar, :remove_avatar, { user_attributes: [:email] }])
+      params.expect(account_profile: [:name, :slug, :avatar, :remove_avatar, :timezone, { user_attributes: [:email] }])
     end
   end
 end

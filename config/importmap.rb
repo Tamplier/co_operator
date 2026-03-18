@@ -13,5 +13,4 @@ pin '@floating-ui/core', to: '@floating-ui--core.js' # @1.7.4
 pin '@floating-ui/utils', to: '@floating-ui--utils.js' # @0.2.10
 pin '@floating-ui/utils/dom', to: '@floating-ui--utils--dom.js' # @0.2.10
 pin "stimulus-use" # @0.52.3
-pin "rrule" # @2.8.1
-pin "tslib" # @2.8.1
+pin "slim-select" # @3.4.3

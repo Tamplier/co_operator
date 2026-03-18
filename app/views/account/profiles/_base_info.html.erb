@@ -1,5 +1,6 @@
 <%
   update_url = update_base_account_profile_path
+  timezones = ActiveSupport::TimeZone.all.map { |tz| ["#{tz.name} (UTC#{tz.formatted_offset})", tz.name] }
 %>
 
 <div class="flex flex-col sm:flex-row gap-6 items-start">
@@ -30,6 +31,11 @@
                       edit_html: { class: 'text-gray-400 w-4 h-4' } %>
         <% end %>
         <%= render 'account/profiles/base/email' %>
+      </div>
+      <div>
+        <% if @edit_mode %>
+          <%= dropdown_with_search(@profile, :timezone, update_url, timezones) %>
+        <% end %>
       </div>
     </div>
 
