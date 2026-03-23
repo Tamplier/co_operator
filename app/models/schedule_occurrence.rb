@@ -24,4 +24,6 @@ class ScheduleOccurrence < ApplicationRecord
   belongs_to :schedule
 
   validates :start_at, comparison: { less_than: :end_at }
+
+  scope :active, -> { where(start_at: (Time.zone.today..)) }
 end

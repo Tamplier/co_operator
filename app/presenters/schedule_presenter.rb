@@ -12,7 +12,7 @@ class SchedulePresenter < ApplicationPresenter
   end
 
   def show?
-    first_occurence.present?
+    next_occurrence(Time.zone.now).present?
   end
 
   def display_time_range

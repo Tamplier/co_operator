@@ -13,6 +13,7 @@
   <% end %>
   <div id="schedules_container" class="flex flex-col gap-2">
     <% @schedule_presenters.each do |presenter| %>
+      <% next unless presenter.show? %>
       <%= render 'account/schedules/schedule_card', presenter: presenter %>
     <% end %>
   </div>

@@ -78,6 +78,7 @@ module Account
 
     def occurrences_ranges
       @occurrences_ranges ||= profile.schedule_occurrences
+                                     .active
                                      .pluck(:start_at, :end_at)
                                      .map { |s, e| s.to_date..e.to_date }
                                      .uniq
