@@ -7,6 +7,7 @@
     --ss-font-color: var(--color-gray-300);
     --ss-border-color: var(--color-gray-300);
     --ss-border-radius: var(--radius-md);
+    --ss-disabled-color: var(--color-gray-800);
 
     /* Heights */
     --ss-main-height: 40px;
@@ -27,7 +28,15 @@
     @apply min-w-50;
   }
 
-  /* Выпадающий список */
+  .ss-main .ss-values .ss-value .ss-value-text {
+    @apply text-gray-300!;
+  }
+
+  .ss-search input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+    -webkit-appearance: none;
+  }
+
   .ss-content {
     @apply shadow-black shadow-md;
     scrollbar-width: thin;

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
     resource :profile, only: %i[] do
       get :me, on: :collection
-      patch :update_base
+      match :update_base, via: [:post, :patch]
       patch :update_email
 
       resources :games, only: %i[new create destroy], as: :my_games

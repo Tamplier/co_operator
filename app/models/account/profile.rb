@@ -31,9 +31,8 @@ module Account
     has_many :stores, through: :external_ids
     has_many :account_games, class_name: 'Account::Game', inverse_of: :account_profile
     has_many :games, through: :account_games, source: :game, class_name: '::Game'
-    has_many :languages, class_name: 'Account::PrefferedLanguage',
-                         inverse_of: :account_profile,
-                         dependent: :destroy
+    has_many :preffered_languages, inverse_of: :account_profile, dependent: :destroy
+    has_many :languages, through: :preffered_languages
     has_many :outgoing_requests, class_name: 'Account::FriendRequest',
                                  inverse_of: :requester,
                                  dependent: :destroy

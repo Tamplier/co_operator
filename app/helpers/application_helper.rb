@@ -11,15 +11,23 @@ module ApplicationHelper
     end
   end
 
-  def dropdown_with_search(record, field, url, collection)
-    submit_data = { controller: 'submit', submit_wrapper_classes_value: '["rounded-md"]' }
+  def dropdown_with_search(record, field, url, collection, **params)
+    inline = params[:inline].presence || true
+    submit_data = inline ? { controller: 'submit', submit_wrapper_classes_value: '["rounded-md"]' } : {}
     turbo_frame_tag dom_id(record, field) do
       simple_form_for(record, url: url, data: submit_data, html: { class: 'relative' }) do |f|
         concat f.input(field, as: :select,
                               collection: collection,
                               label: false,
+                              disabled: params[:disabled] || false,
                               wrapper_html: { data: { submit_target: 'spinner' } },
-                              input_html: { data: { controller: 'dropdown' }, class: 'dropdown' })
+                              input_html: {
+                                data: { controller: 'dropdown',
+                                        dropdown_inline_value: inline,
+                                        dropdown_placeholder_value: t(".#{field}") },
+                                class: 'dropdown',
+                                multiple: params[:multiple] || false
+                              })
       end
     end
   end

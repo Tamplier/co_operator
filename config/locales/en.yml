@@ -70,6 +70,9 @@ en:
       base:
         email:
           resend_confirmation: 'Resend confirmation instructions for'
+      base_info:
+        language_ids: 'Language not specified'
+        timezone: 'Time zone not specified'
       games_info:
         title: 'My Games'
         add_game: "Add Game"

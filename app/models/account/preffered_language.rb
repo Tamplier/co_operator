@@ -5,7 +5,7 @@
 # Table name: account_preffered_languages
 #
 #  id                 :bigint           not null, primary key
-#  priority           :integer          not null
+#  priority           :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  account_profile_id :integer          not null
@@ -26,7 +26,5 @@ module Account
   class PrefferedLanguage < ApplicationRecord
     belongs_to :account_profile, class_name: 'Account::Profile'
     belongs_to :language
-
-    validates :priority, uniqueness: { scope: :account_profile_id }
   end
 end
