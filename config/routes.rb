@@ -21,7 +21,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root 'games#index'
+  root 'home#show'
+
+  resource :home, only: [:show], controller: 'home' do
+    get :top_games
+    get :next_events
+    get :top_profiles
+  end
+
   namespace :account do
     resources :profiles, only: %i[index show] do
       resources :games, only: %i[index]

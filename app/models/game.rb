@@ -20,6 +20,7 @@
 class Game < ApplicationRecord
   has_many :external_ids, as: :owner, dependent: :destroy
   has_many :stores, through: :external_ids
+  has_many :account_games, class_name: 'Account::Game', dependent: :destroy
 
   has_one_attached :preview do |attachable|
     attachable.variant :small,  resize_to_limit: [120, 45]

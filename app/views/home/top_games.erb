@@ -1,0 +1,7 @@
+<%= turbo_frame_tag :top_games do %>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @games.each do |game| %>
+      <%= render 'account/games/game_card', game: game %>
+    <% end %>
+  </div>
+<% end %>
