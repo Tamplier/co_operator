@@ -12,22 +12,27 @@ module ApplicationHelper
   end
 
   def dropdown_with_search(record, field, url, collection, **params)
-    inline = params[:inline].presence || true
+    inline = params[:f].blank?
+    stimulus_vals = params[:scontroller_values]&.transform_keys { |k| :"dropdown_#{k}" }
     submit_data = inline ? { controller: 'submit', submit_wrapper_classes_value: '["rounded-md"]' } : {}
+
+    content = lambda do |f|
+      f.input(field, as: :select, collection: collection, label: false,
+                     wrapper_html: { data: { submit_target: 'spinner' } },
+                     input_html: {
+                       class: 'dropdown', multiple: params[:multiple] || false,
+                       data: { controller: 'dropdown',
+                               **stimulus_vals,
+                               dropdown_inline_value: inline,
+                               dropdown_placeholder_value: t(".#{field}") }
+                     })
+    end
+
     turbo_frame_tag dom_id(record, field) do
+      next content.call(params[:f]) if params[:f].present?
+
       simple_form_for(record, url: url, data: submit_data, html: { class: 'relative' }) do |f|
-        concat f.input(field, as: :select,
-                              collection: collection,
-                              label: false,
-                              disabled: params[:disabled] || false,
-                              wrapper_html: { data: { submit_target: 'spinner' } },
-                              input_html: {
-                                data: { controller: 'dropdown',
-                                        dropdown_inline_value: inline,
-                                        dropdown_placeholder_value: t(".#{field}") },
-                                class: 'dropdown',
-                                multiple: params[:multiple] || false
-                              })
+        content.call(f)
       end
     end
   end

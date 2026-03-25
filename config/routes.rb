@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'find_game', to: 'games#search'
   get 'search_modal', to: 'games#search_modal'
   get 'game/:id', to: 'games#show', as: :game
 end

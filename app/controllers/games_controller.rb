@@ -7,6 +7,14 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
+  def search
+    query = params[:query]
+    return unless query.present?
+
+    games = Game.search_by_title(query)
+    render json: games, only: %i[id title]
+  end
+
   def search_modal
     query = params[:query]
     return unless query.present?
