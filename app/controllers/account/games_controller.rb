@@ -14,10 +14,11 @@ module Account
     end
 
     def new
-      query = params[:query]
-      return if query.blank?
-
-      @game_presenters = ::Game.search_by_title(query).map { build_presenter(it) }
+      @game_presenters = Games::SearchService.call(
+        query: params[:query],
+        context: :add_game_modal,
+        profile: current_user&.account_profile
+      ).result
     end
 
     def create
@@ -41,10 +42,6 @@ module Account
     end
 
     private
-
-    def build_presenter(game)
-      Account::GamePresenter.new(game, context: :add_game_modal, profile: current_user&.account_profile)
-    end
 
     def render_single_result(presenter, prefix)
       render_to_string(partial: SINGLE_RESULT_PARTIAL, locals: { game_presenter: presenter, id_prefix: prefix })
