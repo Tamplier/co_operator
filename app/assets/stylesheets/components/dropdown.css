@@ -24,10 +24,6 @@
     --ss-animation-timing: 0.2s;
   }
 
-  .ss-main {
-    @apply min-w-50;
-  }
-
   .ss-main .ss-values .ss-value .ss-value-text {
     @apply text-gray-300!;
   }

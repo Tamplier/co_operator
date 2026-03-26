@@ -31,7 +31,7 @@
         <% end %>
         <%= render 'account/profiles/base/email' %>
       </div>
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 min-w-50">
         <% if @edit_mode %>
           <%= dropdown_with_search(@profile, :language_ids, update_url, language_options, multiple: true) %>
           <%= dropdown_with_search(@profile, :timezone, update_url, timezone_options) %>
