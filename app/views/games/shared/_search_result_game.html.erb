@@ -1,14 +1,26 @@
 <%# locals: (game_presenter:, id_prefix: '') %>
+<%
+  container_class = 'w-full text-left flex items-center gap-3 sm:px-3 px-0 py-2 rounded-lg hover:bg-gray-700 group'
+%>
 
-<div id="<%= game_presenter.dom_id(id_prefix) %>">
-  <%= button_to game_presenter.action_url,
-                method: game_presenter.action_method,
-                form: { data: game_presenter.action_data },
-                params: game_presenter.action_params,
-                class: 'w-full text-left flex items-center gap-3
-                        sm:px-3 px-0 py-2 rounded-lg hover:bg-gray-700 group' do %>
-    <%= image_tag game_presenter.preview_url(:small), class: 'rounded' %>
-    <div class="flex-1 font-medium group-hover:text-purple-400"><%= game_presenter.title %></div>
-    <%= icon game_presenter.action_icon, class: '"w-5 h-5 text-gray-600 group-hover:text-gray-400' %>
-  <% end %>
-</div>
+<% content = capture do %>
+  <%= image_tag game_presenter.preview_url(:small), class: 'rounded' %>
+  <div class="flex-1 font-medium group-hover:text-purple-400"><%= game_presenter.title %></div>
+<% end %>
+
+<% if game_presenter.action_url.present? %>
+  <div id="<%= game_presenter.dom_id(id_prefix) %>">
+    <%= button_to game_presenter.action_url,
+                  method: game_presenter.action_method,
+                  form: { data: game_presenter.action_data },
+                  params: game_presenter.action_params,
+                  class: container_class do %>
+      <%= content %>
+      <%= icon game_presenter.action_icon, class: '"w-5 h-5 text-gray-600 group-hover:text-gray-400' %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="<%= container_class %>">
+    <%= content %>
+  </div>
+<% end %>

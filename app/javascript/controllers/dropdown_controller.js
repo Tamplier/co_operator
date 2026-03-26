@@ -41,7 +41,7 @@ export default class extends Controller {
             const data = json.map(item => ({
               value: String(item.id),
               text: item.title,
-              // html: item.html
+              html: item.html
             }))
             resolve(data)
           }).catch(() => reject('Search Error'))

@@ -8,11 +8,25 @@ class GamesController < ApplicationController
   end
 
   def search
-    query = params[:query]
-    return unless query.present?
+    @game_presenters = Games::SearchService.call(
+      query: params[:query],
+      context: :search_dropdown,
+      profile: current_user&.account_profile
+    ).result
 
-    games = Game.search_by_title(query)
-    render json: games, only: %i[id title]
+    render body: JSON.generate(
+      @game_presenters.map do |presenter|
+        {
+          id: presenter.id,
+          title: presenter.title,
+          html: render_to_string(
+            partial: 'games/shared/search_result_game',
+            formats: [:html],
+            locals: { game_presenter: presenter }
+          )
+        }
+      end
+    ), content_type: 'application/json'
   end
 
   def search_modal

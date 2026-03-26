@@ -2,6 +2,12 @@
 
 module Account
   class GamePresenter < ApplicationPresenter
+    ACTION_DATA = {
+      search_dropdown: {},
+      search_modal: { turbo_frame: '_top' },
+      add_game_modal: { turbo_stream: true }
+    }.freeze
+
     attr_reader :game, :context, :profile
 
     delegate_missing_to :@game
@@ -34,12 +40,7 @@ module Account
     end
 
     def action_data
-      case context
-      when :search_modal
-        { turbo_frame: '_top' }
-      when :add_game_modal
-        { turbo_stream: true }
-      end
+      ACTION_DATA[context]
     end
 
     private
@@ -49,6 +50,7 @@ module Account
     end
 
     def game_action
+      return {} if context == :search_dropdown
       return { icon: 'chevron-right', url: game_path(game), method: :get } if context == :search_modal
 
       if profile_game_ids.include?(game.id)
