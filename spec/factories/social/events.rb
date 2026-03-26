@@ -5,6 +5,7 @@
 # Table name: social_events
 #
 #  id          :bigint           not null, primary key
+#  duration    :integer          not null
 #  max_players :integer
 #  name        :string
 #  start_date  :datetime

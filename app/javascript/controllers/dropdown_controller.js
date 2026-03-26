@@ -20,7 +20,9 @@ export default class extends Controller {
 
           this.form.requestSubmit();
         },
-        search: (searchValue, currentData) => this.search(searchValue)
+        ...(this.hasPathValue && {
+          search: (searchValue, currentData) => this.search(searchValue)
+        })
       }
     })
   }
@@ -30,7 +32,7 @@ export default class extends Controller {
   }
 
   search(searchValue) {
-    if (!this.hasPathValue || searchValue.length < 3) return;
+    if (!this.hasPathValue || searchValue.length < 3) return Promise.resolve([]);
     clearTimeout(this._searchTimer)
 
     return new Promise((resolve, reject) => {

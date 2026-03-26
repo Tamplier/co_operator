@@ -43,6 +43,14 @@ module Account
       ACTION_DATA[context]
     end
 
+    def html_search_row
+      ApplicationController.render(
+        partial: 'games/shared/search_result_game',
+        formats: [:html],
+        locals: { game_presenter: self }
+      )
+    end
+
     private
 
     def profile_game_ids

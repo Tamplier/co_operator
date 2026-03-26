@@ -45,6 +45,9 @@ Rails.application.routes.draw do
       resources :schedules, except: %i[index], as: :my_schedules
     end
   end
+  namespace :social do
+    resources :events
+  end
 
   get 'find_game', to: 'games#search'
   get 'search_modal', to: 'games#search_modal'

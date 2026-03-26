@@ -17,8 +17,9 @@ module ApplicationHelper
     submit_data = inline ? { controller: 'submit', submit_wrapper_classes_value: '["rounded-md"]' } : {}
 
     content = lambda do |f|
-      f.input(field, as: :select, collection: collection, label: false,
+      f.input(field, as: :select, collection: collection,
                      wrapper_html: { data: { submit_target: 'spinner' } },
+                     label_html: { **params[:label_html] },
                      input_html: {
                        class: 'dropdown', multiple: params[:multiple] || false,
                        data: { controller: 'dropdown',
@@ -31,9 +32,7 @@ module ApplicationHelper
     turbo_frame_tag dom_id(record, field) do
       next content.call(params[:f]) if params[:f].present?
 
-      simple_form_for(record, url: url, data: submit_data, html: { class: 'relative' }) do |f|
-        content.call(f)
-      end
+      simple_form_for(record, url: url, data: submit_data, html: { class: 'relative' }) { |f| content.call(f) }
     end
   end
 

@@ -28,26 +28,36 @@
 #       enabled: "ON"
 
 en:
+  helpers:
+    submit:
+      social_event:
+       create: 'Create Event'
   activerecord:
     schedule:
         daily: 'Daily'
   activemodel:
     errors:
-      models:
-        schedule:
-          must_be_positive: 'must be a positive value.'
+      messages:
+        must_be_positive: 'must be a positive value.'
+        future_date_restriction: 'must be in the future'
   simple_form:
     required:
       mark: ''
       text: ''
       html: ''
     labels:
-      schedule:
-        start_time: 'Start Time'
+      defaults:
         duration_hours: 'Duration (hours)'
         duration_minutes: 'Duration (minutes)'
+      schedule:
+        start_time: 'Start Time'
         recurring: 'Recurring event'
         reference_date: 'Date'
+      social_event:
+        game: 'Select Game'
+        start_date: 'Start Time'
+        duration: 'Duration'
+        max_players: 'Max Players'
   shared:
     sidebar:
       home: 'Home'
@@ -79,6 +89,10 @@ en:
       schedules_info:
         title: 'Availability'
         add_time: 'Add Time'
+  social:
+    events:
+      new:
+        create_event: 'Create new event'
   games:
     shared:
       search:

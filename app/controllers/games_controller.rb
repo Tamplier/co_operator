@@ -19,11 +19,7 @@ class GamesController < ApplicationController
         {
           id: presenter.id,
           title: presenter.title,
-          html: render_to_string(
-            partial: 'games/shared/search_result_game',
-            formats: [:html],
-            locals: { game_presenter: presenter }
-          )
+          html: presenter.html_search_row
         }
       end
     ), content_type: 'application/json'

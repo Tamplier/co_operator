@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_23_113634) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_26_094214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -184,6 +184,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_23_113634) do
 
   create_table "social_events", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "duration", null: false
     t.integer "game_id", null: false
     t.integer "language_id", null: false
     t.integer "max_players"
