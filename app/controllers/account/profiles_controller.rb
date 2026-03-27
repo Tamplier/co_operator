@@ -3,7 +3,7 @@
 module Account
   class ProfilesController < ApplicationController
     before_action :authenticate_user!, except: [:show]
-    before_action :set_profile, except: [:show]
+    before_action :authorize_profile, except: [:show]
 
     def show
       @profile = Account::Profile.friendly.find(params[:id])
@@ -30,16 +30,17 @@ module Account
     end
 
     def me
+      @profile = current_profile
       render :show
     end
 
     private
 
     def common_update(partial = 'account/profiles/base_info')
-      authorize @profile
+      authorize current_profile
 
       @edit_mode = true # 'authorize' literally checks 'update?'
-      result = @profile.update(profile_params)
+      result = current_profile.update(profile_params)
       if result && block_given?
         yield
       else
@@ -47,9 +48,8 @@ module Account
       end
     end
 
-    def set_profile
-      @profile = current_user.account_profile
-      authorize @profile, :update?
+    def authorize_profile
+      authorize current_profile, :update?
       @edit_mode = true
     end
 

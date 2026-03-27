@@ -3,7 +3,7 @@
 module Social
   class EventsController < ApplicationController
     before_action :authenticate_user!, except: %i[index]
-    before_action :set_profile, except: %i[index]
+    before_action :authorize_profile, except: %i[index]
 
     def index; end
 
@@ -12,10 +12,14 @@ module Social
     end
 
     def create
-      @event = @profile.social_events.build
+      @event = Event.new
+      @event.profiles << current_profile
       @form = EventForm.new(@event, permitted_params)
       if @form.save
-        render turbo_stream: turbo_stream.update(:modal, '')
+        render turbo_stream: [
+          turbo_stream.update(:modal, ''),
+          turbo_stream.replace(:sidebar_events, partial: 'shared/sidebar/events')
+        ]
       else
         render :new, status: :unprocessable_entity
       end
@@ -23,9 +27,9 @@ module Social
 
     private
 
-    def set_profile
-      @profile = current_user.account_profile
-      @profile_presenter = Account::ProfilePresenter.new(@profile)
+    def authorize_profile
+      @profile_presenter = Account::ProfilePresenter.new(current_profile)
+      authorize current_profile, :update?
     end
 
     def permitted_params

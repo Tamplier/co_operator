@@ -3,7 +3,7 @@
 module Account
   class SchedulesController < ApplicationController
     before_action :authenticate_user!, except: %i[index calendar]
-    before_action :set_profile, except: %i[index calendar]
+    before_action :authorize_profile, except: %i[index calendar]
     before_action :set_schedule, only: %i[edit update destroy]
 
     def index
@@ -25,12 +25,12 @@ module Account
     end
 
     def new
-      @schedule = @profile.schedules.build
+      @schedule = current_profile.schedules.build
       build_form
     end
 
     def create
-      @schedule = @profile.schedules.build
+      @schedule = current_profile.schedules.build
       build_form(permitted_params)
       if @form.save
         render turbo_stream: [
@@ -73,9 +73,8 @@ module Account
 
     private
 
-    def set_profile
-      @profile = current_user.account_profile
-      authorize @profile, :update?
+    def authorize_profile
+      authorize current_profile, :update?
       @edit_mode = true
     end
 

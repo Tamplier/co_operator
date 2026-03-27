@@ -37,6 +37,7 @@
     @apply shadow-black shadow-md;
     scrollbar-width: thin;
     scrollbar-color: #52525b transparent;
+    position: fixed !important;
   }
 
   .ss-main:focus,

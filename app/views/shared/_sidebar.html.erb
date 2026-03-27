@@ -1,5 +1,5 @@
 <div id="sidebar">
-  <% if current_user.present? %>
+  <% if current_profile.present? %>
     <aside data-sb-target="sidebar"
            id="sidebar_container"
            class="fixed left-0 top-16 bottom-0 w-64 bg-gray-800 z-30
@@ -11,12 +11,7 @@
         </a>
 
         <!-- Events -->
-        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400
-                         hover:bg-gray-700 hover:text-white">
-          <%= icon 'calendar', class: 'w-5 h-5' %>
-          <span><%= t '.my_events' %></span>
-          <span class="ml-auto bg-purple-600 text-white text-xs rounded-full px-2 py-1">3</span>
-        </a>
+        <%= render 'shared/sidebar/events' %>
 
         <!-- Friends -->
         <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg
@@ -29,11 +24,12 @@
         <div class="border-t border-gray-700 my-4"></div>
 
         <!-- Create Event Button -->
-        <button class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg
-                     bg-purple-600 hover:bg-purple-700 text-white font-medium">
-            <%= icon 'plus', class: 'w-5 h-5' %>
-            <span><%= t '.create_event' %></span>
-        </button>
+        <%= link_to new_social_event_path,
+                    class: 'cta w-full flex items-center justify-center gap-2 px-4 py-3',
+                    data: { turbo_frame: :modal } do %>
+          <%= icon 'plus', class: 'w-5 h-5' %>
+          <span><%= t '.create_event' %></span>
+        <% end %>
       </nav>
     </aside>
   <% end %>

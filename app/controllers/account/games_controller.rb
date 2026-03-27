@@ -3,8 +3,8 @@
 module Account
   class GamesController < ApplicationController
     SINGLE_RESULT_PARTIAL = 'games/shared/search_result_game'
-    before_action :authenticate_user!, except: %i[index new]
-    before_action :set_profile, except: [:index]
+    before_action :authenticate_user!, except: %i[index]
+    before_action :authorize_profile, except: [:index]
     before_action :set_game, only: %i[create destroy]
 
     def index
@@ -17,12 +17,12 @@ module Account
       @game_presenters = Games::SearchService.call(
         query: params[:query],
         context: :add_game_modal,
-        profile: current_user&.account_profile
+        profile: current_profile
       ).result
     end
 
     def create
-      @profile.games << @game unless @profile.games.exists?(@game.id)
+      current_profile.games << @game unless current_profile.games.exists?(@game.id)
       @edit_mode = true
       render turbo_stream: [
         turbo_stream.update(@presenter.dom_id('search_'), html: render_single_result(@presenter, 'search_')),
@@ -32,7 +32,7 @@ module Account
     end
 
     def destroy
-      @profile.account_games.find_by(game: @game).destroy
+      current_profile.account_games.find_by(game: @game).destroy
       @edit_mode = true
       render turbo_stream: [
         turbo_stream.update(@presenter.dom_id('search_'), html: render_single_result(@presenter, 'search_')),
@@ -52,9 +52,8 @@ module Account
       @presenter = build_presenter(@game)
     end
 
-    def set_profile
-      @profile = current_user.account_profile
-      authorize @profile, :update?
+    def authorize_profile
+      authorize current_profile, :update?
     end
   end
 end

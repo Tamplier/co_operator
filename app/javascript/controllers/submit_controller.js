@@ -36,7 +36,6 @@ export default class extends Controller {
     this.target = target;
     this.originalWidth = target.offsetWidth;
     target.style.minWidth = `${this.originalWidth}px`;
-    target.disabled = true;
     this.wasTargetHidden = target.classList.contains("hidden") || this.wasTargetHidden;
     target.classList.remove("hidden");
 

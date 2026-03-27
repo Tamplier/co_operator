@@ -15,10 +15,11 @@ module ApplicationHelper
     inline = params[:f].blank?
     stimulus_vals = params[:scontroller_values]&.transform_keys { |k| :"dropdown_#{k}" }
     submit_data = inline ? { controller: 'submit', submit_wrapper_classes_value: '["rounded-md"]' } : {}
+    wrapper_data = inline ? { submit_target: 'spinner' } : {}
 
     content = lambda do |f|
       f.input(field, as: :select, collection: collection,
-                     wrapper_html: { data: { submit_target: 'spinner' } },
+                     wrapper_html: { data: wrapper_data },
                      label_html: { **params[:label_html] },
                      input_html: {
                        class: 'dropdown', multiple: params[:multiple] || false,
