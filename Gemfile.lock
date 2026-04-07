@@ -345,7 +345,7 @@ GEM
     rails-html-sanitizer (1.7.0)
       loofah (~> 2.25)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails_icons (1.7.1)
+    rails_icons (1.8.0)
       icons (~> 0.8.1)
       rails (>= 7.0)
     railties (8.1.3)
@@ -541,7 +541,7 @@ DEPENDENCIES
   pundit
   rails (~> 8.1.2)
   rails-controller-testing
-  rails_icons (~> 1.7)
+  rails_icons (~> 1.8)
   rspec-rails
   rubocop-rails-omakase
   selenium-webdriver
@@ -685,7 +685,7 @@ CHECKSUMS
   rails-controller-testing (1.0.5) sha256=741448db59366073e86fc965ba403f881c636b79a2c39a48d0486f2607182e94
   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
   rails-html-sanitizer (1.7.0) sha256=28b145cceaf9cc214a9874feaa183c3acba036c9592b19886e0e45efc62b1e89
-  rails_icons (1.7.1) sha256=cc8f8ad0837bde5f10828b5297b5aad609ea1ddcb5e745364d13c4d254d8decd
+  rails_icons (1.8.0) sha256=c40ffb4641e6dd244dc63ec6ed6d887869ad7a7f96453cd62bf0bd9d71680d7b
   railties (8.1.3) sha256=913eb0e0cb520aac687ffd74916bd726d48fa21f47833c6292576ef6a286de22
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
