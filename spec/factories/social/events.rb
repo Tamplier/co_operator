@@ -31,6 +31,7 @@ FactoryBot.define do
     name { Faker::Lorem.word }
     max_players { 5 }
     start_date { Time.now + 5.minutes }
+    duration { 1.hour }
 
     trait :with_users do
       transient do

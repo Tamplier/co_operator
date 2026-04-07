@@ -27,7 +27,7 @@ RSpec.describe 'Layout management', type: :request do
     end
 
     context 'when user is registered' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, :with_profile) }
 
       it 'contains user specific header and sidebar' do
         aggregate_failures do
